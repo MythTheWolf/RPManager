@@ -3,24 +3,25 @@ package com.myththewolf.RPManager.lib;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DataCache {
-    private static List<DiscordUser> USERS;
+    private static HashMap<String, DiscordUser> USERS;
 
     public static void makeMaps() {
-        USERS = new ArrayList<DiscordUser>();
+        USERS = new HashMap<String, DiscordUser>();
     }
 
     public static DiscordUser getDiscordUserByID(String ID) {
-        if (USERS.stream().noneMatch(d -> d.getDiscordID().equals(ID))) {
-            USERS.add(new DiscordUser(ID));
+        if (!USERS.containsKey(ID)) {
+            USERS.put(ID, new DiscordUser(ID));
         }
-        return USERS.stream().filter(it -> it.getDiscordID().equals(ID)).findFirst().get();
+        return USERS.get(ID);
     }
-    public static void updateUser(DiscordUser user){
-        USERS.remove(user);
-        USERS.add(user);
+
+    public static void updateUser(DiscordUser user) {
+        USERS.put(user.getDiscordID(), user);
     }
 }
