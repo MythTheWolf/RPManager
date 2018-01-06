@@ -7,19 +7,19 @@ import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 
-public class MessageEvent implements EventListener{
+public class MessageEvent implements EventListener {
     public void onEvent(Event eve) {
-        if(!(eve instanceof MessageReceivedEvent)){
+        if (!(eve instanceof MessageReceivedEvent)) {
             return;
         }
-        if(((MessageReceivedEvent) eve).getAuthor().isBot()){
+        if (((MessageReceivedEvent) eve).getAuthor().isBot()) {
             return;
         }
         MessageReceivedEvent event = (MessageReceivedEvent) eve;
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
-        System.out.println("bok");
-        if(user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)){
-            switch (user.getCharacterBuilder().getStepNumber()){
+        System.out.println("bok:" + user.getCharacterBuilder() == null);
+        if (user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)) {
+            switch (user.getCharacterBuilder().getStepNumber()) {
                 case 1:
                     user.getCharacterBuilder().setNAME(event.getMessage().getContent());
                     user.getCharacterBuilder().commit();
@@ -61,7 +61,8 @@ public class MessageEvent implements EventListener{
                     event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: I have recorded everything I needed, and your character has been added!").queue();
                     user.setCharacterBuilder(null);
                     break;
-                default: break;
+                default:
+                    break;
             }
         }
     }
