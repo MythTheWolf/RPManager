@@ -1,5 +1,6 @@
 package com.myththewolf.RPManager.commands;
 
+import bsh.Interpreter;
 import com.myththewolf.BotServ.lib.API.command.CommandExecutor;
 import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
 import com.myththewolf.RPManager.RPManagerLoader;
@@ -14,12 +15,12 @@ public class Eval implements CommandExecutor {
     @Override
     public void onCommand(DiscordCommand discordCommand) {
         try {
-            ScriptEngineManager manager = new ScriptEngineManager();
-            ScriptEngine engine = manager.getEngineByName("js");
-            engine.put("con", RPManagerLoader.getSQLConnection());
-            DiscordUser dd = null;
-           engine.put("user", dd);
+            Interpreter engine = new Interpreter();
+            engine.set("con",RPManagerLoader.getSQLConnection());
+            engine.set("cmd",discordCommand);
             String bb = "";
+            bb += "";
+
             for (String S : discordCommand.getArgs()) {
                 bb += S + " ";
             }

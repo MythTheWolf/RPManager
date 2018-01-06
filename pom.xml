@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.github.MythTheWolf</groupId>
             <artifactId>BotServ</artifactId>
-            <version>-d76c47dced-1</version>
+            <version>-d1f8fca3d6-1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
