@@ -19,20 +19,7 @@
         <dependency>
             <groupId>com.github.MythTheWolf</groupId>
             <artifactId>BotServ</artifactId>
-            <version>83a5c5f3a4</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.8-dmr</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>LATEST</version>
+            <version>-d76c47dced-1</version>
         </dependency>
     </dependencies>
     <build>

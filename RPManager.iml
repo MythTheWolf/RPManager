@@ -11,8 +11,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.MythTheWolf:BotServ:83a5c5f3a4" level="project" />
-    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.8-dmr" level="project" />
-    <orderEntry type="library" name="Maven: com.mchange:c3p0:unknown" level="project" />
+    <orderEntry type="library" name="Maven: com.github.MythTheWolf:BotServ:-d76c47dced-1" level="project" />
   </component>
 </module>
