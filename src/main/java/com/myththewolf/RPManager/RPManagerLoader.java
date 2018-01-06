@@ -39,6 +39,13 @@ public class RPManagerLoader implements PluginAdapter {
     }
 
     public static Connection getSQLConnection() throws SQLException {
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+        }catch (Exception e){
+            LogError(e);
+        }
+
         String HOST = INSTANCE.getJSONConfig().getString("SQL_HOST");
         String PORT = INSTANCE.getJSONConfig().getString("SQL_PORT");
         String DATABASE = INSTANCE.getJSONConfig().getString("SQL_DATABASE");
