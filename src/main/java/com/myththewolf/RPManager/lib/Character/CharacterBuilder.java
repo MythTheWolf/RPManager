@@ -76,10 +76,14 @@ public class CharacterBuilder {
             PS.setString(7, HEIGHT);
             PS.setString(8, COLORS);
             PS.setString(9, NOTES);
-            this.REFRENCES.forEach(d -> {
-                b += d + ",";
-            });
-            PS.setString(10, b.substring(0, b.length() - 1));
+            if(this.REFRENCES.size() > 0) {
+                this.REFRENCES.forEach(d -> {
+                    b += d + ",";
+                });
+                PS.setString(10, b.substring(0, b.length() - 1));
+            }else{
+                PS.setString(10,"");
+            }
 
             PS.executeUpdate();
         } catch (SQLException e) {
