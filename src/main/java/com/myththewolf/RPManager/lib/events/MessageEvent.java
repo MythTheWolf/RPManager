@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 
 import java.io.File;
+import java.util.UUID;
 
 public class MessageEvent implements EventListener {
     public void onEvent(Event eve) {
@@ -31,9 +32,11 @@ public class MessageEvent implements EventListener {
                             if (!out.exists()) {
                                 out.mkdir();
                             }
-                            File fin = new File(out.getAbsolutePath() + "out");
+                            String uuid = UUID.randomUUID().toString();
+                            File fin = new File(out.getAbsolutePath() + File.separator + uuid + ".png");
                             attachment.download(fin);
-                           // user.getCharacterBuilder().addReference();
+                            System.out.println(fin.getAbsolutePath());
+                            user.getCharacterBuilder().addReference("https://cdn.mythserver.ml/" + event.getAuthor().getId() + "/" + uuid + ".png");
                         }
                     });
                 }
