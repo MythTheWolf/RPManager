@@ -3,6 +3,7 @@ package com.myththewolf.RPManager;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
+import com.myththewolf.RPManager.commands.CharacterWizard;
 import com.myththewolf.RPManager.commands.Eval;
 import net.dv8tion.jda.core.EmbedBuilder;
 import sun.rmi.runtime.Log;
@@ -20,6 +21,7 @@ public class RPManagerLoader implements PluginAdapter {
         INSTANCE = botPlugin;
         try {
             botPlugin.registerCommand("^evaldev", new Eval());
+            botPlugin.registerCommand("^charwizard", new CharacterWizard());
         } catch (Exception e) {
             LogError(e);
         }
@@ -52,7 +54,7 @@ public class RPManagerLoader implements PluginAdapter {
         String USER = INSTANCE.getJSONConfig().getString("SQL_USER");
         String PASS = INSTANCE.getJSONConfig().getString("SQL_PASS");
         if (con == null || con.isClosed()) {
-    String url = "";
+            String url = "";
             MysqlDataSource dataSource = new MysqlDataSource();
             dataSource.setUser(USER);
             dataSource.setPassword(PASS);
