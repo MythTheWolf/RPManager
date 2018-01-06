@@ -1,5 +1,6 @@
 package com.myththewolf.RPManager;
 
+import com.mysql.cj.jdbc.MysqlDataSource;
 import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
 import com.myththewolf.RPManager.commands.Eval;
@@ -51,8 +52,14 @@ public class RPManagerLoader implements PluginAdapter {
         String USER = INSTANCE.getJSONConfig().getString("SQL_USER");
         String PASS = INSTANCE.getJSONConfig().getString("SQL_PASS");
         if (con == null || con.isClosed()) {
-            String url = "jdbc:mysql://" + HOST + "/" + DATABASE;
-            con = DriverManager.getConnection(url, USER, PASS);
+    String url = "";
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setUser(USER);
+            dataSource.setPassword(PASS);
+            dataSource.setServerName(HOST);
+            dataSource.setDatabaseName(DATABASE);
+
+            con = dataSource.getConnection();
         }
         return con;
 
