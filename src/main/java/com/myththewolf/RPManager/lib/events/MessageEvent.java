@@ -17,6 +17,7 @@ public class MessageEvent implements EventListener{
         }
         MessageReceivedEvent event = (MessageReceivedEvent) eve;
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
+        System.out.println("bok");
         if(user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)){
             switch (user.getCharacterBuilder().getStepNumber()){
                 case 1:
