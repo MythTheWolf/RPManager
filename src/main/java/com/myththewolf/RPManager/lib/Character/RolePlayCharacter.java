@@ -86,7 +86,7 @@ public class RolePlayCharacter {
         return activeRoleplays;
     }
 
-    public List<String> getRefs() {
+    public List<String> getReferenceImages() {
         return refs;
     }
 

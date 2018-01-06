@@ -6,6 +6,7 @@ import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.awt.Color;
 
@@ -18,6 +19,14 @@ public class Eval implements CommandExecutor {
             Interpreter engine = new Interpreter();
             engine.set("con", RPManagerLoader.getSQLConnection());
             engine.set("cmd", discordCommand);
+           for(TextChannel t : discordCommand.e.getJDA().getGuildById("332702257214914561").getTextChannels()){
+               t.sendMessage("I say hi!").queue();
+               try{
+                   Thread.sleep(5000);
+               }catch (Exception e){
+                   RPManagerLoader.LogError(e);
+               }
+           }
             engine.set("user", new DiscordUser(discordCommand.getSender().getId()));
             String bb = "";
             bb += "";
