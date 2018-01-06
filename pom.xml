@@ -12,10 +12,6 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
-        <repository>
-            <id>Boundless</id>
-            <url>https://repo.boundlessgeo.com/main/</url>
-        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -25,7 +21,12 @@
             <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.beanshell/bsh -->
-        <!-- https://mvnrepository.com/artifact/org.beanshell/bsh -->
+        <dependency>
+            <groupId>org.beanshell</groupId>
+            <artifactId>bsh</artifactId>
+            <version>2.0b5</version>
+        </dependency>
+
 
 
 
