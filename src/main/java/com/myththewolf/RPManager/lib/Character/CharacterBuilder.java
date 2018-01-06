@@ -66,7 +66,7 @@ public class CharacterBuilder {
 
     public void compile() {
         try {
-            PreparedStatement PS = RPManagerLoader.getSQLConnection().prepareStatement("INSERT INTO `Characters` (`ID`,`owner_discord_id`, `sexuality`, `name`, `bio`, `gender`, `species`, `height`, `colors`, `notes`, `image_urls`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement PS = RPManagerLoader.getSQLConnection().prepareStatement("INSERT INTO `Characters` (`ID`,`owner_discord_id`, `sexuality`, `name`, `bio`, `gender`, `species`, `height`, `colors`, `notes`, `image_urls`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?,?)");
             PS.setString(1, owner.getDiscordID());
             PS.setString(2, SEXUALITY);
             PS.setString(3, NAME);
