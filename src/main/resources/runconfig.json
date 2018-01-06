@@ -1,5 +1,5 @@
 {
-  "name":"FACRoleplayManager",
+  "name":"RPManager",
   "main":"com.myththewolf.RPManager.RPManagerLoader",
   "author":"MythTheWolf",
   "description":"meh",
