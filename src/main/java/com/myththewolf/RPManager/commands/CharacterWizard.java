@@ -14,6 +14,7 @@ public class CharacterWizard implements CommandExecutor{
         discordCommand.getSender().openPrivateChannel().complete().sendMessage("First Question: What is the character name?").queue();
         DiscordUser DU = DataCache.getDiscordUserByID(discordCommand.getSender().getId());
         CharacterBuilder cb = new CharacterBuilder(DU);
+        DU.setCharacterBuilder(cb);
         DataCache.updateUser(DU);
     }
 }
