@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.MythTheWolf:BotServ:e28f3feece">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/MythTheWolf/BotServ/e28f3feece/BotServ-e28f3feece.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/MythTheWolf/BotServ/e28f3feece/BotServ-e28f3feece-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/MythTheWolf/BotServ/e28f3feece/BotServ-e28f3feece-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

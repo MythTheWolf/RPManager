@@ -1,0 +1,7 @@
+{
+  "name":"FACRoleplayManager",
+  "main":"com.myththewolf.RPManager.RPManagerLoader",
+  "author":"MythTheWolf",
+  "description":"meh",
+  "version":"1"
+}
