@@ -2,7 +2,9 @@ package com.myththewolf.RPManager;
 
 import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
+import com.myththewolf.RPManager.commands.Eval;
 import net.dv8tion.jda.core.EmbedBuilder;
+import sun.rmi.runtime.Log;
 
 import java.awt.*;
 import java.sql.Connection;
@@ -15,6 +17,12 @@ public class RPManagerLoader implements PluginAdapter {
 
     public void onEnable(BotPlugin botPlugin) {
         INSTANCE = botPlugin;
+        try {
+            botPlugin.registerCommand("^evaldev", new Eval());
+        } catch (Exception e) {
+            LogError(e);
+        }
+
     }
 
     public void onDisable() {
