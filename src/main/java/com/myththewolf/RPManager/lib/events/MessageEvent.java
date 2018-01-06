@@ -56,7 +56,7 @@ public class MessageEvent implements EventListener {
                     event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: Please type out any additional notes you would like to add.").queue();
                     break;
                 case 8:
-                    user.getCharacterBuilder().setNAME(event.getMessage().getContent());
+                    user.getCharacterBuilder().setNOTES(event.getMessage().getContent());
                     user.getCharacterBuilder().compile();
                     event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: I have recorded everything I needed, and your character has been added!").queue();
                     user.setCharacterBuilder(null);

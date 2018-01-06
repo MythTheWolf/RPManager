@@ -38,6 +38,7 @@ public class RPManagerLoader implements PluginAdapter {
     }
 
     public static void LogError(Exception e) {
+        e.printStackTrace();
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(Color.RED);
         eb.setTitle(":bomb: The bot generated a exception");
