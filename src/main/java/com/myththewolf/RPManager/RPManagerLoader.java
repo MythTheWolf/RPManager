@@ -6,6 +6,7 @@ import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
 import com.myththewolf.RPManager.commands.CharacterWizard;
 import com.myththewolf.RPManager.commands.Eval;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.events.MessageEvent;
 import net.dv8tion.jda.core.EmbedBuilder;
 import sun.rmi.runtime.Log;
 
@@ -22,6 +23,7 @@ public class RPManagerLoader implements PluginAdapter {
     public void onEnable(BotPlugin botPlugin) {
         INSTANCE = botPlugin;
         DataCache.makeMaps();
+        botPlugin.getJDAInstance().addEventListener(new MessageEvent());
         try {
             botPlugin.registerCommand("^evaldev", new Eval());
             botPlugin.registerCommand("^charwizard", new CharacterWizard());
