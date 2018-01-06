@@ -7,13 +7,14 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Eval implements CommandExecutor {
     @Override
     public void onCommand(DiscordCommand discordCommand) {
         try {
             DiscordUser d;
+            discordCommand.e.getTextChannel().getId();
             Interpreter engine = new Interpreter();
             engine.set("con", RPManagerLoader.getSQLConnection());
             engine.set("cmd", discordCommand);
@@ -27,7 +28,7 @@ public class Eval implements CommandExecutor {
             Object res = engine.eval(bb);
             EmbedBuilder EB = new EmbedBuilder();
             EB.setTitle("Java Evalutation");
-            EB.setColor(Color.BLACK);
+            EB.setColor(Color.GREEN);
             EB.addField(":printer: Result", "```" + res.toString() + "```", false);
             EB.addField(":wrench: ResultType", "```" + res.getClass() + "```", false);
             discordCommand.reply(EB);
