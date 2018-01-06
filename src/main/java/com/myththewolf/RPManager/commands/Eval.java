@@ -18,7 +18,7 @@ public class Eval implements CommandExecutor {
             ScriptEngine engine = manager.getEngineByName("js");
             engine.put("con", RPManagerLoader.getSQLConnection());
             DiscordUser dd = null;
-            engine.put("user", dd);
+           engine.put("user", dd);
             String bb = "";
             for (String S : discordCommand.getArgs()) {
                 bb += S + " ";
@@ -31,6 +31,7 @@ public class Eval implements CommandExecutor {
             EB.addField(":wrench: ResultType", "```" + res.getClass() + "```", false);
             discordCommand.reply(EB);
         } catch (Exception e) {
+            e.printStackTrace();
             RPManagerLoader.LogError(e);
         }
     }
