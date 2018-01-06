@@ -40,7 +40,6 @@ public class RPManagerLoader implements PluginAdapter {
 
     public static Connection getSQLConnection() throws SQLException {
         try{
-            Class.forName("com.mysql.jdbc.Driver");
 
         }catch (Exception e){
             LogError(e);
