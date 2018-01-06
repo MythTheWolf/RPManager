@@ -7,17 +7,17 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.awt.*;
 
 public class Eval implements CommandExecutor {
     @Override
     public void onCommand(DiscordCommand discordCommand) {
         try {
+            DiscordUser d;
             Interpreter engine = new Interpreter();
-            engine.set("con",RPManagerLoader.getSQLConnection());
-            engine.set("cmd",discordCommand);
+            engine.set("con", RPManagerLoader.getSQLConnection());
+            engine.set("cmd", discordCommand);
+            engine.set("user", new DiscordUser(discordCommand.getSender().getId()));
             String bb = "";
             bb += "";
 
