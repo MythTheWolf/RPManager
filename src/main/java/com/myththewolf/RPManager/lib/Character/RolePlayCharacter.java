@@ -53,4 +53,53 @@ public class RolePlayCharacter {
             RPManagerLoader.LogError(e);
         }
     }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSpecies() {
+        return Species;
+    }
+
+    public DiscordUser getCharacterOwner() {
+        return characterOwner;
+    }
+
+    public List<DiscordRoleplay> getActiveRoleplays() {
+        return activeRoleplays;
+    }
+
+    public List<String> getRefs() {
+        return refs;
+    }
+
+    public String getColors() {
+        return colors;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public String getSexuality() {
+        return sexuality;
+    }
+
 }

@@ -16,6 +16,7 @@ public class DiscordUser {
     private int max_rps;
     private int reputaion;
     private CharacterBuilder CB = null;
+
     public DiscordUser(String discordID) {
         PreparedStatement ps;
         try {
@@ -35,8 +36,13 @@ public class DiscordUser {
             RPManagerLoader.LogError(e);
         }
     }
-    public void setCharacterBuilder(CharacterBuilder b){
+
+    public void setCharacterBuilder(CharacterBuilder b) {
         this.CB = b;
+    }
+
+    public String getName() {
+        return RPManagerLoader.INSTANCE.getJDAInstance().getUserById(getDiscordID()).getName();
     }
 
     public CharacterBuilder getCharacterBuilder() {

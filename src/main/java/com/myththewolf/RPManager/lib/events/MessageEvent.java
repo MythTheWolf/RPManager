@@ -7,6 +7,8 @@ import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 
+import java.io.File;
+
 public class MessageEvent implements EventListener {
     public void onEvent(Event eve) {
         if (!(eve instanceof MessageReceivedEvent)) {
@@ -19,6 +21,23 @@ public class MessageEvent implements EventListener {
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
         System.out.println("bok:" + user.getCharacterBuilder() == null);
         if (user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)) {
+            if (user.getCharacterBuilder().getStepNumber() == 7) {
+                if (event.getMessage().getContent().equals("done")) {
+                    user.getCharacterBuilder().commit();
+                } else {
+                    event.getMessage().getAttachments().forEach(attachment -> {
+                        if (attachment.isImage()) {
+                            File out = new File("/var/www/cdnmythserver/" + event.getAuthor().getId());
+                            if (!out.exists()) {
+                                out.mkdir();
+                            }
+                            File fin = new File(out.getAbsolutePath() + "out");
+                            attachment.download(fin);
+                           // user.getCharacterBuilder().addReference();
+                        }
+                    });
+                }
+            }
             switch (user.getCharacterBuilder().getStepNumber()) {
                 case 1:
                     user.getCharacterBuilder().setNAME(event.getMessage().getContent());
@@ -52,11 +71,9 @@ public class MessageEvent implements EventListener {
                     break;
                 case 7:
                     user.getCharacterBuilder().setSPECIES(event.getMessage().getContent());
-                    user.getCharacterBuilder().commit();
-                    event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: Please provide any direct image URLs that represent your character, seperated by spaces.").queue();
+                    event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: Please upload any images you would like to have displayed of your character. Type `done` when complete.").queue();
                     break;
                 case 8:
-                    user.getCharacterBuilder().setREFRENCES(event.getMessage().getContent());
                     user.getCharacterBuilder().commit();
                     event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: Please type out any additional notes you would like to add.").queue();
                     break;

@@ -2,10 +2,11 @@ package com.myththewolf.RPManager.lib.Character;
 
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterBuilder {
     private DiscordUser owner;
@@ -17,12 +18,14 @@ public class CharacterBuilder {
     private String HEIGHT;
     private String COLORS;
     private String NOTES;
-    private String REFRENCES;
+    private List<String> REFRENCES;
     private String SEXUALITY;
     private int step = 1;
+    String b = "";
 
     public CharacterBuilder(DiscordUser DU) {
         this.owner = DU;
+        REFRENCES = new ArrayList<>();
     }
 
     public void setNAME(String name) {
@@ -49,8 +52,8 @@ public class CharacterBuilder {
         this.SPECIES = SPECIES;
     }
 
-    public void setREFRENCES(String REFRENCES) {
-        this.REFRENCES = REFRENCES;
+    public void addReference(String URL) {
+        this.REFRENCES.add(URL);
     }
 
     public void setNOTES(String NOTES) {
@@ -73,7 +76,10 @@ public class CharacterBuilder {
             PS.setString(7, HEIGHT);
             PS.setString(8, COLORS);
             PS.setString(9, NOTES);
-            PS.setString(10, REFRENCES);
+            this.REFRENCES.forEach(d -> {
+                b += d + ",";
+            });
+            PS.setString(10, b.substring(0, b.length() - 1));
 
             PS.executeUpdate();
         } catch (SQLException e) {
