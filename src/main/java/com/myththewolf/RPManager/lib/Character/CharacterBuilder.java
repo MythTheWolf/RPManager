@@ -18,6 +18,7 @@ public class CharacterBuilder {
     private String COLORS;
     private String NOTES;
     private String REFRENCES;
+    private String SEXUALITY;
     private int step = 1;
 
     public CharacterBuilder(DiscordUser DU) {
@@ -56,26 +57,35 @@ public class CharacterBuilder {
         this.NOTES = NOTES;
     }
 
+    public void setSEXUALITY(String SEXUALITY) {
+        this.SEXUALITY = SEXUALITY;
+    }
+
     public void compile() {
         try {
-            PreparedStatement PS = RPManagerLoader.getSQLConnection().prepareStatement("INSERT INTO `Characters` (`ID`, `name`, `bio`, `gender`, `species`, `height`, `colors`, `notes`, `image_urls`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?,?)");
-            PS.setString(1, NAME);
-            PS.setString(2, BIO);
-            PS.setString(3, GENDER);
-            PS.setString(4, SPECIES);
-            PS.setString(5, HEIGHT);
-            PS.setString(6, COLORS);
-            PS.setString(7, NOTES);
-            PS.setString(8, REFRENCES);
+            PreparedStatement PS = RPManagerLoader.getSQLConnection().prepareStatement("INSERT INTO `Characters` (`ID`,`owner_discord_id`, `sexuality`, `name`, `bio`, `gender`, `species`, `height`, `colors`, `notes`, `image_urls`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?,?)");
+            PS.setString(1, owner.getDiscordID());
+            PS.setString(2, SEXUALITY);
+            PS.setString(3, NAME);
+            PS.setString(4, BIO);
+            PS.setString(5, GENDER);
+            PS.setString(6, SPECIES);
+            PS.setString(7, HEIGHT);
+            PS.setString(8, COLORS);
+            PS.setString(9, NOTES);
+            PS.setString(10, REFRENCES);
+
             PS.executeUpdate();
         } catch (SQLException e) {
             RPManagerLoader.LogError(e);
         }
     }
-    public int getStepNumber(){
+
+    public int getStepNumber() {
         return step;
     }
-    public void commit(){
+
+    public void commit() {
         step++;
     }
 }
