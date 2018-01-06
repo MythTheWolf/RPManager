@@ -5,11 +5,13 @@ import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
 import com.myththewolf.RPManager.commands.CharacterWizard;
 import com.myththewolf.RPManager.commands.Eval;
+import com.myththewolf.RPManager.lib.DataCache;
 import net.dv8tion.jda.core.EmbedBuilder;
 import sun.rmi.runtime.Log;
 
 import java.awt.*;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -19,6 +21,7 @@ public class RPManagerLoader implements PluginAdapter {
 
     public void onEnable(BotPlugin botPlugin) {
         INSTANCE = botPlugin;
+        DataCache.makeMaps();
         try {
             botPlugin.registerCommand("^evaldev", new Eval());
             botPlugin.registerCommand("^charwizard", new CharacterWizard());
