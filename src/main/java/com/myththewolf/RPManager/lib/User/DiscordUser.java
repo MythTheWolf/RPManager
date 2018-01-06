@@ -26,7 +26,7 @@ public class DiscordUser {
             while (rs.next()) {
                 ID = discordID;
                 for (String character_id : rs.getString("character_ids").split(",")) {
-                    characters.add(new RolePlayCharacter(character_id));
+                    characters.add(new RolePlayCharacter(Integer.parseInt(character_id)));
                 }
                 status = rs.getString("status");
                 max_rps = rs.getInt("max_concurrent_rps");
