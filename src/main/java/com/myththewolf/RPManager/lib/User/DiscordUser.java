@@ -26,6 +26,9 @@ public class DiscordUser {
             while (rs.next()) {
                 ID = discordID;
                 for (String character_id : rs.getString("character_ids").split(",")) {
+                    if (character_id.isEmpty()) {
+                        continue;
+                    }
                     characters.add(new RolePlayCharacter(Integer.parseInt(character_id)));
                 }
                 status = rs.getString("status");
