@@ -64,7 +64,6 @@ public class DataCache {
     }
 
     public static void updateUser(DiscordUser user) {
-        USERS.remove(user.getDiscordID());
         USERS.put(user.getDiscordID(), new DiscordUser(user.getDiscordID()));
     }
 
