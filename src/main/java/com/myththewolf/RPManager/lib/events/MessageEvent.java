@@ -19,8 +19,8 @@ public class MessageEvent implements EventListener {
             return;
         }
         MessageReceivedEvent event = (MessageReceivedEvent) eve;
+        System.out.println("::"+event.getMessage().getContent());
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
-        System.out.println("bok:" + user.getCharacterBuilder() == null);
         if (user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)) {
             if (user.getCharacterBuilder().getStepNumber() == 7) {
                 if (event.getMessage().getContent().equals("done")) {
