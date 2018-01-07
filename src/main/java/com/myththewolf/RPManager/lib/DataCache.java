@@ -34,17 +34,17 @@ public class DataCache {
     private static void checkActualDatabase(String ID) {
         try {
             PreparedStatement ps = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Users` WHERE `discord_id` = ?");
-            ps.setString(1,ID);
+            ps.setString(1, ID);
             ResultSet rs = ps.executeQuery();
-            if(!rs.next()){
+            if (!rs.next()) {
                 PreparedStatement neu = RPManagerLoader.getSQLConnection().prepareStatement("INSERT INTO `Users` (`ID`, `discord_id`, `character_ids`, `status`, `max_concurrent_rps`, `reputation`) VALUES (NULL, ?, ?, ?, 4, ?)");
-                neu.setString(1,ID);
-                neu.setString(2,"");
-                neu.setString(3,"OK");
-                neu.setString(4,"0");
+                neu.setString(1, ID);
+                neu.setString(2, "");
+                neu.setString(3, "OK");
+                neu.setString(4, "0");
                 neu.executeUpdate();
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             RPManagerLoader.LogError(e);
         }
     }
@@ -75,5 +75,9 @@ public class DataCache {
     public static void updateRolePlay(DiscordRoleplay rp) {
         ROLEPLAYS.remove(rp.getId());
         ROLEPLAYS.put(rp.getId(), new DiscordRoleplay(rp.getId()));
+    }
+
+    public static HashMap<Integer, DiscordRoleplay> getRoleplayMap() {
+        return new HashMap<>(ROLEPLAYS);
     }
 }

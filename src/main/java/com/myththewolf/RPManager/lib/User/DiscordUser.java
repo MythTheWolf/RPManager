@@ -4,6 +4,7 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.CharacterBuilder;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
+import net.dv8tion.jda.core.entities.PrivateChannel;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -71,6 +72,10 @@ public class DiscordUser {
 
     public int getReputaion() {
         return reputaion;
+    }
+
+    public PrivateChannel asPrivateChannel() {
+        return RPManagerLoader.INSTANCE.getJDAInstance().getUserById(getDiscordID()).openPrivateChannel().complete();
     }
 
     @Override

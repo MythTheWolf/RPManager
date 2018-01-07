@@ -5,16 +5,21 @@ import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
 import com.myththewolf.RPManager.commands.CharacterWizard;
 import com.myththewolf.RPManager.commands.Eval;
+import com.myththewolf.RPManager.commands.minuwekk;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.events.MessageEvent;
+import net.dv8tion.jda.client.managers.EmoteManager;
 import net.dv8tion.jda.core.EmbedBuilder;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
 import sun.rmi.runtime.Log;
 
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class RPManagerLoader implements PluginAdapter {
     public static BotPlugin INSTANCE;
@@ -23,10 +28,14 @@ public class RPManagerLoader implements PluginAdapter {
     public void onEnable(BotPlugin botPlugin) {
         INSTANCE = botPlugin;
         DataCache.makeMaps();
+        storeAllRPS();
+        startRPWatcherService();
+        startRPTurnWatcerService();
         botPlugin.getJDAInstance().addEventListener(new MessageEvent());
         try {
             botPlugin.registerCommand("^evaldev", new Eval());
             botPlugin.registerCommand("^charwizard", new CharacterWizard());
+            botPlugin.registerCommand("init-data()", new minuwekk());
         } catch (Exception e) {
             LogError(e);
         }
@@ -71,5 +80,55 @@ public class RPManagerLoader implements PluginAdapter {
         }
         return con;
 
+    }
+
+    public void startRPWatcherService() {
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        exec.scheduleAtFixedRate(() -> {
+            DataCache.getRoleplayMap().forEach((key, val) -> {
+                if (!val.expired() && Days.daysBetween(val.getExpireDate(), new DateTime()).getDays() <= 1 && Days.daysBetween(val.getLastPostDate(), new DateTime()).getDays() >= 7) {
+                    EmbedBuilder WARNING = new EmbedBuilder();
+                    WARNING.setColor(Color.RED);
+                    WARNING.setTitle(":warning: RP About to expire :warning:");
+                    WARNING.addField("RP Name", "```" + val.getRoleplayName() + "```", false);
+                    WARNING.addField("Character Name", "```" + val.getStagedCharacter().getName() + "```", false);
+                    WARNING.setDescription("This roleplay will expire in 1 day, and it's your turn to post. Please leave or commit to the roleplay.");
+                    val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(WARNING.build());
+                } else if (val.expired()) {
+                    val.getCharacterList().forEach(character -> {
+                        EmbedBuilder cl = new EmbedBuilder();
+                        cl.setTitle("RP Closed");
+                        cl.addField("RP Name", "```" + val.getRoleplayName() + "```", false);
+                        cl.addField("Character Name", "```" + character.getName() + "```", false);
+                        cl.setColor(Color.RED);
+                        cl.setDescription("This roleplay has been closed due to inactivity");
+                        character.getCharacterOwner().asPrivateChannel().sendMessage(cl.build());
+                    });
+                }
+            });
+        }, 0, 12, TimeUnit.HOURS);
+    }
+
+    public void startRPTurnWatcerService() {
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        exec.scheduleAtFixedRate(() -> {
+            DataCache.getRoleplayMap().forEach((key, val) -> {
+                if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() >= 16) {
+                    val.setLastPing(new DateTime());
+                }
+            });
+        }, 0, 20, TimeUnit.SECONDS);
+    }
+
+    public void storeAllRPS() {
+        try {
+            PreparedStatement ps = getSQLConnection().prepareStatement("SELECT * FROM `Roleplays`");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                DataCache.getRoleplayById(rs.getInt("ID"));
+            }
+        } catch (SQLException e) {
+            LogError(e);
+        }
     }
 }

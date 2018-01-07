@@ -8,6 +8,7 @@ import org.joda.time.format.DateTimeFormat;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +22,9 @@ public class DiscordRoleplay {
     private TextChannel hostChannel;
     private String status;
     private String serial = "";
+    private int turn = 0;
+    private DateTime lastPost;
+    private DateTime lastPing;
 
     public DiscordRoleplay(int id) {
         try {
@@ -32,7 +36,7 @@ public class DiscordRoleplay {
                 this.creationDate = DateTime.parse(rs.getString("creation_date"), DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT));
                 this.expireDate = DateTime.parse(rs.getString("expire_date"), DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT));
                 this.roleplayName = rs.getString("name");
-
+                this.lastPost = DateTime.parse(rs.getString("last_post_date"), DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT));
                 Arrays.stream(rs.getString("character_ids").split(",")).forEach(it -> {
                     if (!it.isEmpty()) {
                         this.characterList.add(DataCache.getCharacterByID(Integer.parseInt(it)));
@@ -96,11 +100,12 @@ public class DiscordRoleplay {
 
     public void recompile() {
         try {
-            PreparedStatement up = RPManagerLoader.getSQLConnection().prepareStatement("UPDATE `Roleplays` SET `expire_date` = ?, `name` = ?, `character_ids` = ?  WHERE `ID` = ?");
+            PreparedStatement up = RPManagerLoader.getSQLConnection().prepareStatement("UPDATE `Roleplays` SET `expire_date` = ?, `name` = ?, `last_post_date` = ? `character_ids` = ?  WHERE `ID` = ?");
             up.setString(1, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getExpireDate()));
             up.setString(2, getRoleplayName());
             up.setString(3, getSerializedCharacterString());
-            up.setInt(4, getId());
+            up.setString(4, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getLastPostDate()));
+            up.setInt(5, getId());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,9 +117,35 @@ public class DiscordRoleplay {
         return this.expireDate.isBeforeNow();
     }
 
-    @Override
+    public void push() {
+        if (turn == getCharacterList().size() - 1) {
+            turn = 0;
+            lastPost = new DateTime();
+        } else {
+            turn++;
+        }
+        recompile();
+    }
+
+    public DateTime getLastPostDate() {
+        return lastPost;
+    }
+
+    public RolePlayCharacter getStagedCharacter() {
+        return getCharacterList().get(turn);
+    }
+
+
     public boolean equals(Object obj) {
         if (obj instanceof DiscordRoleplay) if (((DiscordRoleplay) obj).getId() == this.getId()) return true;
         return false;
+    }
+
+    public DateTime getLastPing() {
+        return lastPing;
+    }
+
+    public void setLastPing(DateTime lastPing) {
+        this.lastPing = lastPing;
     }
 }

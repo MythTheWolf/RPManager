@@ -24,7 +24,6 @@ public class RolePlayCharacter {
     private List<DiscordRoleplay> activeRoleplays = new ArrayList<DiscordRoleplay>();
     private List<String> refs = new ArrayList<>();
     private DiscordUser characterOwner;
-
     public RolePlayCharacter(int charID) {
         try {
             PreparedStatement ps = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Characters` WHERE `ID` = ?");
