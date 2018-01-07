@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.UUID;
 
 public class MessageEvent implements EventListener {
+    boolean escape;
     public void onEvent(Event eve) {
         if (!(eve instanceof MessageReceivedEvent)) {
             return;
@@ -18,6 +19,7 @@ public class MessageEvent implements EventListener {
         if (((MessageReceivedEvent) eve).getAuthor().isBot()) {
             return;
         }
+        escape = false;
         MessageReceivedEvent event = (MessageReceivedEvent) eve;
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
         if (user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)) {
@@ -37,10 +39,13 @@ public class MessageEvent implements EventListener {
                             System.out.println(fin.getAbsolutePath());
                             user.getCharacterBuilder().addReference("https://cdn.mythserver.ml/" + event.getAuthor().getId() + "/" + uuid + ".png");
                            // event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: Please upload any images you would like to have displayed of your character. Type `done` when complete.").queue();
-                            return;
+                            escape = true;
                         }
                     });
                 }
+            }
+            if(escape){
+                return;
             }
             switch (user.getCharacterBuilder().getStepNumber()) {
                 case 1:
