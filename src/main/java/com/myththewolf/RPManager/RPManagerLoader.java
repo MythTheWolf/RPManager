@@ -8,6 +8,7 @@ import com.myththewolf.RPManager.commands.Eval;
 import com.myththewolf.RPManager.commands.minuwekk;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.Services.LastPostCheckService;
+import com.myththewolf.RPManager.lib.Services.RPExpirationDateService;
 import com.myththewolf.RPManager.lib.events.MessageEvent;
 import net.dv8tion.jda.client.managers.EmoteManager;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -86,14 +87,15 @@ public class RPManagerLoader implements PluginAdapter {
     public void startRPWatcherService() {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(new LastPostCheckService(), 0, 3, TimeUnit.SECONDS);
-
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(new RPExpirationDateService(), 0, 24, TimeUnit.HOURS);
     }
-
 
 
     public void storeAllRPS() {
         try {
-            PreparedStatement ps = getSQLConnection().prepareStatement("SELECT * FROM `Roleplays`");
+            PreparedStatement ps = getSQLConnection().prepareStatement("SELECT * FROM `Roleplays` WHERE `status` = ?");
+            ps.setString(1, "ACTIVE");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 DataCache.addRP(rs.getInt("ID"));

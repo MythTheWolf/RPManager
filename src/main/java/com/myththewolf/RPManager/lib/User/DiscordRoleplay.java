@@ -3,10 +3,12 @@ package com.myththewolf.RPManager.lib.User;
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -147,5 +149,18 @@ public class DiscordRoleplay {
 
     public void setLastPing(DateTime lastPing) {
         this.lastPing = lastPing;
+    }
+
+    public void sendBoardMessage(String value) {
+        EmbedBuilder t = new EmbedBuilder();
+        t.setTitle("System Message");
+        t.setDescription(value);
+        t.setColor(Color.BLACK);
+        getHostChannel().sendMessage(t.build()).queue();
+    }
+
+    public void archive() {
+        this.status = "ARCHIVED";
+        recompile();
     }
 }
