@@ -11,7 +11,7 @@ public class minuwekk implements CommandExecutor{
     public void onCommand(DiscordCommand discordCommand) {
         DateTime fakeCreate = new DateTime();
         DateTime fakePost = new DateTime();
-        fakePost.minusWeeks(4);
+        fakePost = fakePost.minusWeeks(4);
         discordCommand.reply("Fake creation date::"+ DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(fakeCreate));
         discordCommand.reply("Fake lastPostDate::"+DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(fakePost));
     }
