@@ -8,12 +8,13 @@ import net.dv8tion.jda.core.entities.PrivateChannel;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DiscordUser {
     private String ID;
-    private List<RolePlayCharacter> characters = new ArrayList<RolePlayCharacter>();
+    private List<RolePlayCharacter> characters = null;
     private String status;
     private int max_rps;
     private int reputaion;
@@ -55,8 +56,28 @@ public class DiscordUser {
     }
 
     public List<RolePlayCharacter> getCharacters() {
+        if (characters == null) {
+            characters = new ArrayList<RolePlayCharacter>();
+            PreparedStatement ps;
+            try {
+                ps = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Users` WHERE `discord_id` = ?");
+                ps.setString(1, getDiscordID());
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    for (String character_id : rs.getString("character_ids").split(",")) {
+                        if (character_id.isEmpty()) {
+                            continue;
+                        }
+                        characters.add(new RolePlayCharacter(Integer.parseInt(character_id)));
+                    }
+                }
+            } catch (SQLException e) {
+                RPManagerLoader.LogError(e);
+            }
+        }
         return characters;
     }
+
 
     public String getStatus() {
         return status;

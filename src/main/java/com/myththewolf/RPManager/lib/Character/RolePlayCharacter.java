@@ -25,7 +25,6 @@ public class RolePlayCharacter {
     private List<DiscordRoleplay> activeRoleplays = new ArrayList<DiscordRoleplay>();
     private List<String> refs = new ArrayList<>();
     private DiscordUser characterOwner;
-
     public RolePlayCharacter(int charID) {
         try {
             PreparedStatement ps = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Characters` WHERE `ID` = ?");
@@ -42,7 +41,7 @@ public class RolePlayCharacter {
                 notes = rs.getString("notes");
                 sexuality = rs.getString("sexuality");
                 Arrays.stream(rs.getString("image_urls").split(",")).forEach(con -> this.refs.add(con));
-              //  characterOwner = new DiscordUser(rs.getString("owner_discord_id"));
+                characterOwner = new DiscordUser(rs.getString("owner_discord_id"));
                 PreparedStatement search = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Roleplays` WHERE `character_ids` LIKE \"%," + charID + "\" OR `character_ids` LIKE \"%," + charID + ",%\" AND `status` = ?");
                 search.setString(1, "ACTIVE");
                 ResultSet two = search.executeQuery();

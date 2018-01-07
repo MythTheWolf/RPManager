@@ -125,7 +125,7 @@ public class RPManagerLoader implements PluginAdapter {
                         cl.setColor(Color.RED);
                         cl.setDescription("The RP has been thread-blocked because it is waiting on your post. Please leave the RP or make your post!");
                         System.out.println(val.getStagedCharacter().getCharacterOwner().getDiscordID());
-                        val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage("d").queue();
+                      //  val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage("d").queue();
                         val.setLastPing(new DateTime());
                     }
                 });
