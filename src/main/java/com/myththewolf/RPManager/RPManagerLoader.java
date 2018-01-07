@@ -115,7 +115,7 @@ public class RPManagerLoader implements PluginAdapter {
             System.out.println("poll");
             DataCache.getRoleplayMap().forEach((key, val) -> {
                 System.out.print(DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(val.getLastPostDate()) + " it::" + Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours());
-                if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() <= 16) {
+                if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && (val.getLastPing() != null && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() <= 16)) {
                     val.setLastPing(new DateTime());
                 }
             });
