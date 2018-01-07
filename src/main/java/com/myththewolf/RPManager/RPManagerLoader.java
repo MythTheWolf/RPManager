@@ -118,16 +118,15 @@ public class RPManagerLoader implements PluginAdapter {
                 DataCache.getRoleplayMap().forEach((key, val) -> {
                     System.out.println((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && (val.getLastPing() == null || (val.getLastPing() != null && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() <= 16)));
                     if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && (val.getLastPing() == null || (val.getLastPing() != null && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() <= 16))) {
-                        System.out.println(val.getStagedCharacter().getName());
-                        val.setLastPing(new DateTime());
                         EmbedBuilder cl = new EmbedBuilder();
                         cl.setTitle("RP Waiting for your post");
                         cl.addField("RP Name", "```" + val.getRoleplayName() + "```", false);
                         cl.addField("Character Name", "```" + val.getStagedCharacter().getName() + "```", false);
                         cl.setColor(Color.RED);
                         cl.setDescription("The RP has been thread-blocked because it is waiting on your post. Please leave the RP or make your post!");
-                        val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(cl.build()).queue();
-
+                        System.out.println(val.getStagedCharacter().getCharacterOwner().getDiscordID());
+                        val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage("d").queue();
+                        val.setLastPing(new DateTime());
                     }
                 });
             }, 0, 5, TimeUnit.SECONDS);
