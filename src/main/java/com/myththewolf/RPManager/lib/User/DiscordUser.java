@@ -31,7 +31,7 @@ public class DiscordUser {
                     if (character_id.isEmpty()) {
                         continue;
                     }
-                    characters.add(DataCache.getCharacterByID(Integer.parseInt(character_id)));
+                    characters.add(new RolePlayCharacter(Integer.parseInt(character_id)));
                 }
                 status = rs.getString("status");
                 max_rps = rs.getInt("max_concurrent_rps");
