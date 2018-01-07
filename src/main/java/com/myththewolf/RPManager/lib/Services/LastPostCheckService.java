@@ -15,7 +15,7 @@ public class LastPostCheckService implements Runnable {
             DateTime lastPing = rp.getLastPing();
             DateTime now = new DateTime();
             int hoursSinceLastPost = Hours.hoursBetween(lastPost, now).getHours();
-            int hoursSinceLastPing = lastPing != null ? Hours.hoursBetween(lastPing, now).getHours() : 17;
+            int hoursSinceLastPing = (lastPing != null) ? Hours.hoursBetween(lastPing, now).getHours() : 17;
             if (hoursSinceLastPing >= 16 && hoursSinceLastPost >= 16) {
                 EmbedBuilder warning = new EmbedBuilder();
                 warning.setColor(Color.YELLOW);

@@ -147,6 +147,5 @@ public class DiscordRoleplay {
 
     public void setLastPing(DateTime lastPing) {
         this.lastPing = lastPing;
-        recompile();
     }
 }
