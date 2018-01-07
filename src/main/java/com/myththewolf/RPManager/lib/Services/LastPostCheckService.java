@@ -23,7 +23,7 @@ public class LastPostCheckService implements Runnable {
                 warning.addField("RP name", "```" + rp.getRoleplayName() + "```", false);
                 warning.addField("RP Character name:", "```" + rp.getStagedCharacter().getName() + "```", false);
                 warning.setFooter("_You will be pinged every 16 hours, and you will lose 4 reputation every 16 hours until you reply._", null);
-                rp.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(warning.build());
+                rp.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(warning.build()).queue();
                 rp.setLastPing(now);
             }
         });
