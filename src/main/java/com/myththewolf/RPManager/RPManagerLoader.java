@@ -112,12 +112,14 @@ public class RPManagerLoader implements PluginAdapter {
     public void startRPTurnWatcerService() {
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
         exec.scheduleAtFixedRate(() -> {
+            System.out.println("poll");
             DataCache.getRoleplayMap().forEach((key, val) -> {
                 if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() >= 16) {
                     val.setLastPing(new DateTime());
                 }
             });
         }, 0, 20, TimeUnit.SECONDS);
+
     }
 
     public void storeAllRPS() {
