@@ -64,7 +64,7 @@ public class DataCache {
     }
 
     public static void updateUser(DiscordUser user) {
-        USERS.put(user.getDiscordID(), new DiscordUser(user.getDiscordID()));
+        USERS.put(user.getDiscordID(), user);
     }
 
     public static void updateCharacter(RolePlayCharacter character) {
