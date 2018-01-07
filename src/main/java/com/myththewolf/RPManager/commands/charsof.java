@@ -21,7 +21,7 @@ public class charsof implements CommandExecutor {
         });
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Character Listing");
-        eb.setImage(discordCommand.e.getJDA().getUserById(to_find_id).getAvatarUrl());
+        eb.setThumbnail(discordCommand.e.getJDA().getUserById(to_find_id).getAvatarUrl());
         eb.setDescription("```" + build + "```");
         discordCommand.reply(eb);
     }
