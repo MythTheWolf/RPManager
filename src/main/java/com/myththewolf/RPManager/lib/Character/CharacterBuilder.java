@@ -1,9 +1,11 @@
 package com.myththewolf.RPManager.lib.Character;
 
 import com.myththewolf.RPManager.RPManagerLoader;
+import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,16 +78,30 @@ public class CharacterBuilder {
             PS.setString(7, HEIGHT);
             PS.setString(8, COLORS);
             PS.setString(9, NOTES);
-            if(this.REFRENCES.size() > 0) {
+            if (this.REFRENCES.size() > 0) {
                 this.REFRENCES.forEach(d -> {
                     b += d + ",";
                 });
                 PS.setString(10, b.substring(0, b.length() - 1));
-            }else{
-                PS.setString(10,"");
+            } else {
+                PS.setString(10, "");
             }
 
             PS.executeUpdate();
+
+            PS = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Characters` WHERE `owner_discord_id` = ?");
+            PS.setString(1, owner.getDiscordID());
+            ResultSet tmp = PS.executeQuery();
+            String oldList = "";
+            while (tmp.next()) {
+                oldList += tmp.getInt("ID") + ",";
+            }
+
+            PreparedStatement fin = RPManagerLoader.getSQLConnection().prepareStatement("UPDATE `Users` SET `character_ids` = ? WHERE `discord_id` = ?");
+            fin.setString(1, oldList.substring(0, oldList.length() - 1));
+            fin.setString(2, owner.getDiscordID());
+            fin.executeUpdate();
+            DataCache.updateUser(owner);
         } catch (SQLException e) {
             RPManagerLoader.LogError(e);
         }

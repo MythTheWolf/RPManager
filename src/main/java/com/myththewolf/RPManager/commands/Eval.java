@@ -19,7 +19,9 @@ public class Eval implements CommandExecutor {
             Interpreter engine = new Interpreter();
             engine.set("con", RPManagerLoader.getSQLConnection());
             engine.set("cmd", discordCommand);
-            engine.set("self", new DiscordUser(discordCommand.getSender().getId()));
+            DiscordUser self = new DiscordUser(discordCommand.getSender().getId());
+            engine.set("self",self );
+self.getCharacters().size();
             String bb = "";
             bb += "";
 
