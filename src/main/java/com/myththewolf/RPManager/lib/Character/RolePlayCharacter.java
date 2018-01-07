@@ -102,4 +102,9 @@ public class RolePlayCharacter {
         return sexuality;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof RolePlayCharacter) if (((RolePlayCharacter) obj).getID() == this.getID()) return true;
+        return false;
+    }
 }

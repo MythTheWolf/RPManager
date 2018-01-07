@@ -20,6 +20,7 @@ public class DiscordRoleplay {
     private List<RolePlayCharacter> characterList = new ArrayList<>();
     private TextChannel hostChannel;
     private String status;
+    private String serial = "";
 
     public DiscordRoleplay(int id) {
         try {
@@ -78,18 +79,42 @@ public class DiscordRoleplay {
         recompile();
     }
 
+    public String getSerializedCharacterString() {
+        serial = "";
+        getCharacterList().forEach(character -> {
+            this.serial += character.getID() + ",";
+        });
+        return this.serial.substring(0, this.serial.length() - 1);
+    }
+
+    public void addCharacter(RolePlayCharacter character) {
+        if (!getCharacterList().contains(character)) {
+            this.characterList.add(character);
+            recompile();
+        }
+    }
+
     public void recompile() {
         try {
-            PreparedStatement up = RPManagerLoader.getSQLConnection().prepareStatement("UPDATE `Roleplays` SET `expire_date` = ? WHERE `ID` = ?");
+            PreparedStatement up = RPManagerLoader.getSQLConnection().prepareStatement("UPDATE `Roleplays` SET `expire_date` = ?, `name` = ?, `character_ids` = ?  WHERE `ID` = ?");
             up.setString(1, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getExpireDate()));
-            up.setInt(2, getId());
+            up.setString(2, getRoleplayName());
+            up.setString(3, getSerializedCharacterString());
+            up.setInt(4, getId());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         DataCache.updateRolePlay(this);
     }
 
-    public boolean expired(){
+    public boolean expired() {
         return this.expireDate.isBeforeNow();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DiscordRoleplay) if (((DiscordRoleplay) obj).getId() == this.getId()) return true;
+        return false;
     }
 }

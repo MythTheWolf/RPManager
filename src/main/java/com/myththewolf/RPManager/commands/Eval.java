@@ -6,7 +6,6 @@ import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.awt.Color;
 
