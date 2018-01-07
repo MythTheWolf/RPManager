@@ -94,7 +94,7 @@ public class RPManagerLoader implements PluginAdapter {
                     WARNING.addField("RP Name", "```" + val.getRoleplayName() + "```", false);
                     WARNING.addField("Character Name", "```" + val.getStagedCharacter().getName() + "```", false);
                     WARNING.setDescription("This roleplay will expire in 1 day, and it's your turn to post. Please leave or commit to the roleplay.");
-                    val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(WARNING.build());
+                    val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(WARNING.build()).queue();
                 } else if (val.expired()) {
                     val.getCharacterList().forEach(character -> {
                         EmbedBuilder cl = new EmbedBuilder();
@@ -103,7 +103,7 @@ public class RPManagerLoader implements PluginAdapter {
                         cl.addField("Character Name", "```" + character.getName() + "```", false);
                         cl.setColor(Color.RED);
                         cl.setDescription("This roleplay has been closed due to inactivity");
-                        character.getCharacterOwner().asPrivateChannel().sendMessage(cl.build());
+                        character.getCharacterOwner().asPrivateChannel().sendMessage(cl.build()).queue();
                     });
                 }
             });
@@ -124,7 +124,7 @@ public class RPManagerLoader implements PluginAdapter {
                         cl.addField("Character Name", "```" + val.getStagedCharacter().getName() + "```", false);
                         cl.setColor(Color.RED);
                         cl.setDescription("The RP has been thread-blocked because it is waiting on your post. Please leave the RP or make your post!");
-                        val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(cl.build());
+                        val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(cl.build()).queue();
                     }
                 });
             }, 0, 5, TimeUnit.SECONDS);
