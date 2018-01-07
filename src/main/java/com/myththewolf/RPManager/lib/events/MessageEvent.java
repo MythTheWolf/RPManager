@@ -36,6 +36,8 @@ public class MessageEvent implements EventListener {
                             attachment.download(fin);
                             System.out.println(fin.getAbsolutePath());
                             user.getCharacterBuilder().addReference("https://cdn.mythserver.ml/" + event.getAuthor().getId() + "/" + uuid + ".png");
+                            event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: Please upload any images you would like to have displayed of your character. Type `done` when complete.").queue();
+                            return;
                         }
                     });
                 }

@@ -88,4 +88,8 @@ public class DiscordRoleplay {
         }
         DataCache.updateRolePlay(this);
     }
+
+    public boolean expired(){
+        return this.expireDate.isBeforeNow();
+    }
 }
