@@ -13,6 +13,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
+import org.joda.time.format.DateTimeFormat;
 import sun.rmi.runtime.Log;
 
 import java.awt.*;
@@ -114,12 +115,12 @@ public class RPManagerLoader implements PluginAdapter {
         exec.scheduleAtFixedRate(() -> {
             System.out.println("poll");
             DataCache.getRoleplayMap().forEach((key, val) -> {
-                System.out.print("it");
+                System.out.print(DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(val.getLastPostDate()) + " it::" + Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours());
                 if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() <= 16) {
                     val.setLastPing(new DateTime());
                 }
             });
-        }, 0, 20, TimeUnit.SECONDS);
+        }, 0, 5, TimeUnit.SECONDS);
 
     }
 
