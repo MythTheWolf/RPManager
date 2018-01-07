@@ -3,6 +3,7 @@ package com.myththewolf.RPManager.lib.User;
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.CharacterBuilder;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
+import com.myththewolf.RPManager.lib.DataCache;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class DiscordUser {
                     if (character_id.isEmpty()) {
                         continue;
                     }
-                    characters.add(new RolePlayCharacter(Integer.parseInt(character_id)));
+                    characters.add(DataCache.getCharacterByID(Integer.parseInt(character_id)));
                 }
                 status = rs.getString("status");
                 max_rps = rs.getInt("max_concurrent_rps");
