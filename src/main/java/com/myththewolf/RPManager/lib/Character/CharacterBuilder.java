@@ -50,8 +50,8 @@ public class CharacterBuilder {
         this.HEIGHT = HEIGHT;
     }
 
-    public void setSPECIES(String SPECIES) {
-        this.SPECIES = SPECIES;
+    public void setSPECIES(String SPEC) {
+        this.SPECIES = SPEC;
     }
 
     public void addReference(String URL) {
@@ -73,6 +73,7 @@ public class CharacterBuilder {
             PS.setString(2, SEXUALITY);
             PS.setString(3, NAME);
             PS.setString(4, BIO);
+            System.out.println("Species--> " + this.SPECIES);
             PS.setString(5, GENDER);
             PS.setString(6, SPECIES);
             PS.setString(7, HEIGHT);
