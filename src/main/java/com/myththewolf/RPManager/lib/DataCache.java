@@ -49,19 +49,6 @@ public class DataCache {
         }
     }
 
-    public static RolePlayCharacter getCharacterByID(int ID) {
-        if (!CHARACTERS.containsKey(ID)) {
-            CHARACTERS.put(ID, new RolePlayCharacter(ID));
-        }
-        return CHARACTERS.get(ID);
-    }
-
-    public static DiscordRoleplay getRoleplayById(int ID) {
-        if (!ROLEPLAYS.containsKey(ID)) {
-            ROLEPLAYS.put(ID, new DiscordRoleplay(ID));
-        }
-        return ROLEPLAYS.get(ID);
-    }
 
     public static void updateUser(DiscordUser user) {
         USERS.put(user.getDiscordID(), user);
