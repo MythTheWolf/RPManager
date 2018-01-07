@@ -67,4 +67,8 @@ public class DataCache {
     public static HashMap<Integer, DiscordRoleplay> getRoleplayMap() {
         return new HashMap<>(ROLEPLAYS);
     }
+
+    public static void addRP(int id) {
+        ROLEPLAYS.put(id, new DiscordRoleplay(id));
+    }
 }

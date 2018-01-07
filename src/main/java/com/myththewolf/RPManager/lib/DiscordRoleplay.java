@@ -8,7 +8,6 @@ import org.joda.time.format.DateTimeFormat;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +38,7 @@ public class DiscordRoleplay {
                 this.lastPost = DateTime.parse(rs.getString("last_post_date"), DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT));
                 Arrays.stream(rs.getString("character_ids").split(",")).forEach(it -> {
                     if (!it.isEmpty()) {
-                        this.characterList.add(DataCache.getCharacterByID(Integer.parseInt(it)));
+                        this.characterList.add(new RolePlayCharacter(Integer.parseInt(it)));
                     }
                 });
                 this.hostChannel = RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(rs.getString("channel_id"));

@@ -139,7 +139,7 @@ public class RPManagerLoader implements PluginAdapter {
             PreparedStatement ps = getSQLConnection().prepareStatement("SELECT * FROM `Roleplays`");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                DataCache.getRoleplayById(rs.getInt("ID"));
+                DataCache.addRP(rs.getInt("ID"));
             }
         } catch (SQLException e) {
             LogError(e);

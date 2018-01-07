@@ -47,7 +47,7 @@ public class RolePlayCharacter {
                 search.setString(1, "ACTIVE");
                 ResultSet two = search.executeQuery();
                 while (two.next()) {
-                    activeRoleplays.add(DataCache.getRoleplayById(two.getInt("ID")));
+                    activeRoleplays.add(new DiscordRoleplay(two.getInt("ID")));
                 }
             }
         } catch (SQLException e) {
