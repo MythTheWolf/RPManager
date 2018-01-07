@@ -114,7 +114,8 @@ public class RPManagerLoader implements PluginAdapter {
         exec.scheduleAtFixedRate(() -> {
             System.out.println("poll");
             DataCache.getRoleplayMap().forEach((key, val) -> {
-                if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() >= 16) {
+                System.out.print("it");
+                if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() <= 16) {
                     val.setLastPing(new DateTime());
                 }
             });
