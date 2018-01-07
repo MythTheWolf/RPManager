@@ -5,6 +5,7 @@ import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
 import com.myththewolf.RPManager.commands.CharacterWizard;
 import com.myththewolf.RPManager.commands.Eval;
+import com.myththewolf.RPManager.commands.charsof;
 import com.myththewolf.RPManager.commands.minuwekk;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.Services.LastPostCheckService;
@@ -38,6 +39,7 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("^evaldev", new Eval());
             botPlugin.registerCommand("^charwizard", new CharacterWizard());
             botPlugin.registerCommand("init-data()", new minuwekk());
+            botPlugin.registerCommand("^charsof", new charsof());
         } catch (Exception e) {
             LogError(e);
         }
