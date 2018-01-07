@@ -7,6 +7,7 @@ import com.myththewolf.RPManager.commands.CharacterWizard;
 import com.myththewolf.RPManager.commands.Eval;
 import com.myththewolf.RPManager.commands.minuwekk;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.Services.LastPostCheckService;
 import com.myththewolf.RPManager.lib.events.MessageEvent;
 import net.dv8tion.jda.client.managers.EmoteManager;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -31,7 +32,6 @@ public class RPManagerLoader implements PluginAdapter {
         DataCache.makeMaps();
         storeAllRPS();
         startRPWatcherService();
-        startRPTurnWatcerService();
         botPlugin.getJDAInstance().addEventListener(new MessageEvent());
         try {
             botPlugin.registerCommand("^evaldev", new Eval());
@@ -84,55 +84,12 @@ public class RPManagerLoader implements PluginAdapter {
     }
 
     public void startRPWatcherService() {
-        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
-        exec.scheduleAtFixedRate(() -> {
-            DataCache.getRoleplayMap().forEach((key, val) -> {
-                if (!val.expired() && Days.daysBetween(val.getExpireDate(), new DateTime()).getDays() <= 1 && Days.daysBetween(val.getLastPostDate(), new DateTime()).getDays() >= 7) {
-                    EmbedBuilder WARNING = new EmbedBuilder();
-                    WARNING.setColor(Color.RED);
-                    WARNING.setTitle(":warning: RP About to expire :warning:");
-                    WARNING.addField("RP Name", "```" + val.getRoleplayName() + "```", false);
-                    WARNING.addField("Character Name", "```" + val.getStagedCharacter().getName() + "```", false);
-                    WARNING.setDescription("This roleplay will expire in 1 day, and it's your turn to post. Please leave or commit to the roleplay.");
-                    val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(WARNING.build()).queue();
-                } else if (val.expired()) {
-                    val.getCharacterList().forEach(character -> {
-                        EmbedBuilder cl = new EmbedBuilder();
-                        cl.setTitle("RP Closed");
-                        cl.addField("RP Name", "```" + val.getRoleplayName() + "```", false);
-                        cl.addField("Character Name", "```" + character.getName() + "```", false);
-                        cl.setColor(Color.RED);
-                        cl.setDescription("This roleplay has been closed due to inactivity");
-                        character.getCharacterOwner().asPrivateChannel().sendMessage(cl.build()).queue();
-                    });
-                }
-            });
-        }, 0, 12, TimeUnit.HOURS);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(new LastPostCheckService(), 0, 3, TimeUnit.SECONDS);
+
     }
 
-    public void startRPTurnWatcerService() {
-        Thread T = new Thread(() -> {
-            ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
-            exec.scheduleAtFixedRate(() -> {
-                System.out.println("poll");
-                DataCache.getRoleplayMap().forEach((key, val) -> {
-                    System.out.println((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && (val.getLastPing() == null || (val.getLastPing() != null && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() <= 16)));
-                    if ((Hours.hoursBetween(val.getLastPostDate(), new DateTime()).getHours() >= 16) && (val.getLastPing() == null || (val.getLastPing() != null && Hours.hoursBetween(val.getLastPing(), new DateTime()).getHours() <= 16))) {
-                        EmbedBuilder cl = new EmbedBuilder();
-                        cl.setTitle("RP Waiting for your post");
-                        cl.addField("RP Name", "```" + val.getRoleplayName() + "```", false);
-                        cl.addField("Character Name", "```" + val.getStagedCharacter().getName() + "```", false);
-                        cl.setColor(Color.RED);
-                        cl.setDescription("The RP has been thread-blocked because it is waiting on your post. Please leave the RP or make your post!");
-                        System.out.println(val.getStagedCharacter().getCharacterOwner().getDiscordID());
-                      //  val.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage("d").queue();
-                        val.setLastPing(new DateTime());
-                    }
-                });
-            }, 0, 5, TimeUnit.SECONDS);
-        });
-        T.start();
-    }
+
 
     public void storeAllRPS() {
         try {

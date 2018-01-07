@@ -1,8 +1,7 @@
 package com.myththewolf.RPManager.lib.Character;
 
 import com.myththewolf.RPManager.RPManagerLoader;
-import com.myththewolf.RPManager.lib.DataCache;
-import com.myththewolf.RPManager.lib.DiscordRoleplay;
+import com.myththewolf.RPManager.lib.User.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
 import java.sql.PreparedStatement;

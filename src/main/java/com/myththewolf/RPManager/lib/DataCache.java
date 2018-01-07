@@ -2,6 +2,7 @@ package com.myththewolf.RPManager.lib;
 
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
+import com.myththewolf.RPManager.lib.User.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
 
