@@ -12,18 +12,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RolePlayCharacter {
-    public int ID;
-    public String name;
-    public String bio;
-    public String gender;
-    public String Species;
-    public String height;
-    public String colors;
-    public String notes;
-    public String sexuality;
-    public List<DiscordRoleplay> activeRoleplays = new ArrayList<DiscordRoleplay>();
-    public List<String> refs = new ArrayList<>();
-    public DiscordUser characterOwner;
+    private int ID;
+    private String name;
+    private String bio;
+    private String gender;
+    private String Species;
+    private String height;
+    private String colors;
+    private String notes;
+    private String sexuality;
+    private List<DiscordRoleplay> activeRoleplays = new ArrayList<DiscordRoleplay>();
+    private List<String> refs = new ArrayList<>();
+    private DiscordUser characterOwner;
 
     public RolePlayCharacter(int charID) {
         try {
@@ -40,7 +40,7 @@ public class RolePlayCharacter {
                 colors = rs.getString("colors");
                 notes = rs.getString("notes");
                 sexuality = rs.getString("sexuality");
-                Arrays.stream(rs.getString("image_urls").split(" ")).forEach(con -> this.refs.add(con));
+                Arrays.stream(rs.getString("image_urls").split(",")).forEach(con -> this.refs.add(con));
                 characterOwner = new DiscordUser("owner_discord_id");
                 PreparedStatement search = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Roleplays` WHERE `character_ids` LIKE \"%," + charID + "\" OR `character_ids` LIKE \"%," + charID + ",%\" AND `status` = ?");
                 search.setString(1, "ACTIVE");
