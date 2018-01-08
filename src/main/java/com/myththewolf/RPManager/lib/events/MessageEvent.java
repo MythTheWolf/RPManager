@@ -45,12 +45,26 @@ public class MessageEvent implements EventListener {
                 EmbedBuilder illegal = new EmbedBuilder();
                 illegal.setColor(Color.RED);
                 illegal.setTitle("Illegal action");
-                illegal.addField("RP Name:",target.getRoleplayName(),false);
-                illegal.addField("Illegeal Content:", event.getMessage().getContent(), false);
-                illegal.setDescription("All RP posts must be one of the following: \n ((*any text* for OCC messages \n \\_*Any text*\\_ for RP actions.");
+                illegal.addField("RP Name:", target.getRoleplayName(), false);
+                illegal.addField("Illegal Content:", event.getMessage().getContent(), false);
+                illegal.setDescription("All RP posts must be one of the following: \n ((\\*any text\\* for OCC messages \n \\_\\*Any text\\*\\_ for RP actions.");
                 illegal.setFooter("The illegal post has been removed. It is still your turn to post.", null);
                 user.asPrivateChannel().sendMessage(illegal.build()).queue();
                 event.getMessage().delete().queue();
+                return;
+            } else if (!target.getStagedCharacter().equals(user) && !message.startsWith("((")) {
+                EmbedBuilder illegal = new EmbedBuilder();
+                illegal.setColor(Color.RED);
+                illegal.setTitle("Illegal action");
+                illegal.addField("RP Name:", target.getRoleplayName(), false);
+                illegal.addField("Illegal Content:", event.getMessage().getContent(), false);
+                illegal.setDescription("It is not your turn to post. You may only post OOC actions.");
+                illegal.setFooter("The illegal post has been removed. You may still use OOC messages.", null);
+                user.asPrivateChannel().sendMessage(illegal.build()).queue();
+                event.getMessage().delete().queue();
+                return;
+            } else if (target.getStagedCharacter().equals(user) && message.startsWith("_")) {
+                target.push();
                 return;
             }
         }

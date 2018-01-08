@@ -16,7 +16,7 @@ public class LastPostCheckService implements Runnable {
             DateTime now = new DateTime();
             int hoursSinceLastPost = Hours.hoursBetween(lastPost, now).getHours();
             int hoursSinceLastPing = (lastPing != null) ? Hours.hoursBetween(lastPing, now).getHours() : 17;
-            if (hoursSinceLastPing >= 16 && hoursSinceLastPost >= 16) {
+            if (hoursSinceLastPing >= 1 && hoursSinceLastPost >= 1) {
                 EmbedBuilder warning = new EmbedBuilder();
                 warning.setColor(Color.YELLOW);
                 warning.setTitle(":timer: Your turn to post!");

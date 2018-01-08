@@ -130,7 +130,6 @@ public class DiscordRoleplay {
         } else {
             turn++;
         }
-        System.out.println("TURN::" + turn);
         recompile();
     }
 
