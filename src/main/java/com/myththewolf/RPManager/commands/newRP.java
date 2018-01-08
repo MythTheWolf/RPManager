@@ -30,7 +30,7 @@ public class newRP implements CommandExecutor{
             return;
         }
         RolePlayBuilder rolePlayBuilder = new RolePlayBuilder();
-        rolePlayBuilder.setName(discordCommand.getArgs()[1]);
+        rolePlayBuilder.setName(discordCommand.getArgs()[0]);
         RolePlayCharacter sel = self.getCharacterByID(cid);
         rolePlayBuilder.initCharacter(sel);
         rolePlayBuilder.compile();
