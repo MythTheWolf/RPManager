@@ -1,6 +1,7 @@
 package com.myththewolf.RPManager.lib.events;
 
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.Event;
@@ -12,6 +13,9 @@ import java.util.UUID;
 
 public class MessageEvent implements EventListener {
     boolean escape;
+    boolean found;
+    DiscordRoleplay target;
+
     public void onEvent(Event eve) {
         if (!(eve instanceof MessageReceivedEvent)) {
             return;
@@ -20,8 +24,23 @@ public class MessageEvent implements EventListener {
             return;
         }
         escape = false;
+        found = false;
         MessageReceivedEvent event = (MessageReceivedEvent) eve;
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
+        found = false;
+        target = null;
+        DataCache.getRoleplayMap().forEach((id, rp) -> {
+            if (rp.getHostChannel().getId().equals(event.getTextChannel().getId())) {
+                found = true;
+                target = rp;
+            }
+        });
+
+        if (found) {
+            String message = event.getMessage().getRawContent();
+            System.out.println(message);
+            return;
+        }
         if (user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)) {
             if (user.getCharacterBuilder().getStepNumber() == 7) {
                 if (event.getMessage().getContent().equals("done")) {
@@ -38,13 +57,13 @@ public class MessageEvent implements EventListener {
                             attachment.download(fin);
                             System.out.println(fin.getAbsolutePath());
                             user.getCharacterBuilder().addReference("https://cdn.mythserver.ml/" + event.getAuthor().getId() + "/" + uuid + ".png");
-                           // event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: Please upload any images you would like to have displayed of your character. Type `done` when complete.").queue();
+                            // event.getAuthor().openPrivateChannel().complete().sendMessage(":ok_hand: Please upload any images you would like to have displayed of your character. Type `done` when complete.").queue();
                             escape = true;
                         }
                     });
                 }
             }
-            if(escape){
+            if (escape) {
                 return;
             }
             switch (user.getCharacterBuilder().getStepNumber()) {
