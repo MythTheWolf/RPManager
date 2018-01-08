@@ -77,7 +77,7 @@ public class character implements CommandExecutor {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     didthedo = true;
-                    c = new RolePlayCharacter(Integer.parseInt(discordCommand.getArgs()[0]));
+                    c = new RolePlayCharacter(rs.getInt("ID"));
                 }
                 if (!didthedo) {
                     discordCommand.reply(":warning: No character found by or like that name.");
