@@ -1,5 +1,6 @@
 package com.myththewolf.RPManager.lib.events;
 
+import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
@@ -29,6 +30,8 @@ public class MessageEvent implements EventListener {
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
         found = false;
         target = null;
+        DataCache.clearRPCache();
+        RPManagerLoader.storeAllRPS();
         DataCache.getRoleplayMap().forEach((id, rp) -> {
             if (rp.getHostChannel().getId().equals(event.getTextChannel().getId())) {
                 found = true;
