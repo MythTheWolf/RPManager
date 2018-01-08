@@ -1,7 +1,7 @@
 package com.myththewolf.RPManager.lib.Services;
 
 import com.myththewolf.RPManager.lib.DataCache;
-import com.myththewolf.RPManager.lib.User.DiscordRoleplay;
+import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import net.dv8tion.jda.core.EmbedBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.Days;

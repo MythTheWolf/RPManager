@@ -2,7 +2,7 @@ package com.myththewolf.RPManager.lib;
 
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
-import com.myththewolf.RPManager.lib.User.DiscordRoleplay;
+import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
 
@@ -75,5 +75,9 @@ public class DataCache {
 
     public static HashMap<String, DiscordUser> getUserMap() {
         return new HashMap<>(USERS);
+    }
+
+    public static void clearRPCache() {
+        ROLEPLAYS.clear();
     }
 }

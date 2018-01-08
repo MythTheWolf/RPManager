@@ -4,9 +4,12 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.CharacterBuilder;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.RolePlay.RolePlayRequest;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.PrivateChannel;
 import net.dv8tion.jda.core.entities.User;
 
+import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -110,6 +113,17 @@ public class DiscordUser {
 
     public User asRawDiscordUser() {
         return RPManagerLoader.INSTANCE.getJDAInstance().getUserById(getDiscordID());
+    }
+
+    public void addRPReuqest(RolePlayRequest request) {
+        this.requests.add(request);
+        EmbedBuilder b = new EmbedBuilder();
+        b.setTitle("Roleplay Request");
+        b.addField("RP Name", "```" + request.getRoleplay().getRoleplayName() + "```", false);
+        b.setColor(Color.BLUE);
+        b.setDescription("Use `^rpaccept " + request.getId() + " {{character id}}` where `{{character id}} is the ID of the character you wish to use to join.");
+        b.setFooter("Dont know your character IDs? Use '^mychars' to find them!", null);
+        asPrivateChannel().sendMessage(b.build()).queue();
     }
 
     @Override

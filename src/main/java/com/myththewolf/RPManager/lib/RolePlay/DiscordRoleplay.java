@@ -1,4 +1,4 @@
-package com.myththewolf.RPManager.lib.User;
+package com.myththewolf.RPManager.lib.RolePlay;
 
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
