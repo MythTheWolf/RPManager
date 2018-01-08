@@ -10,6 +10,8 @@ import java.awt.*;
 public class LastPostCheckService implements Runnable {
     @Override
     public void run() {
+        System.out.println("check");
+
         DataCache.getRoleplayMap().forEach((id, rp) -> {
             DateTime lastPost = rp.getLastPostDate();
             DateTime lastPing = rp.getLastPing();
