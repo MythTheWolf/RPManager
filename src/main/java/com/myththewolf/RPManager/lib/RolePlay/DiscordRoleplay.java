@@ -3,6 +3,7 @@ package com.myththewolf.RPManager.lib.RolePlay;
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -28,6 +29,7 @@ public class DiscordRoleplay {
     private int turn = 0;
     private DateTime lastPost;
     private DateTime lastPing;
+    private DiscordUser owner;
 
     public DiscordRoleplay(int id) {
         try {
@@ -47,6 +49,7 @@ public class DiscordRoleplay {
                 });
                 this.hostChannelID = rs.getString("channel_id");
                 this.status = rs.getString("status");
+                this.owner = DataCache.getDiscordUserByID(rs.getString("owner"));
             }
         } catch (Exception e) {
             RPManagerLoader.LogError(e);
@@ -67,6 +70,10 @@ public class DiscordRoleplay {
 
     public DateTime getExpireDate() {
         return expireDate;
+    }
+
+    public DiscordUser getOwner() {
+        return owner;
     }
 
     public int getId() {
@@ -167,6 +174,17 @@ public class DiscordRoleplay {
     public void archive() {
         this.status = "ARCHIVED";
         getHostChannel().delete().queue();
+        recompile();
+    }
+
+    public void removeCharacter(RolePlayCharacter c) {
+        if (getCharacterList().size() == 2) {
+            archive();
+            DataCache.clearRPCache();
+            RPManagerLoader.storeAllRPS();
+            return;
+        }
+        this.characterList.remove(c);
         recompile();
     }
 }

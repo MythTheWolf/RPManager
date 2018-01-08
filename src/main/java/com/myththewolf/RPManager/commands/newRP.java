@@ -29,7 +29,7 @@ public class newRP implements CommandExecutor {
             discordCommand.failed("You do not have a character with the ID '" + cid + "'");
             return;
         }
-        RolePlayBuilder rolePlayBuilder = new RolePlayBuilder();
+        RolePlayBuilder rolePlayBuilder = new RolePlayBuilder(self);
         rolePlayBuilder.setName(discordCommand.getArgs()[0]);
         RolePlayCharacter sel = self.getCharacterByID(cid);
         rolePlayBuilder.initCharacter(sel);

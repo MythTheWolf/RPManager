@@ -3,6 +3,7 @@ package com.myththewolf.RPManager.lib.RolePlay;
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -10,9 +11,7 @@ import net.dv8tion.jda.core.managers.ChannelManager;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +26,10 @@ public class RolePlayBuilder {
     public String cat_id;
     public DateTime last_post;
     private String chars = "";
+    private DiscordUser owner;
 
-    public RolePlayBuilder() {
+    public RolePlayBuilder(DiscordUser own) {
+        owner = own;
         CreationDate = new DateTime();
         ExpireDate = CreationDate.plusDays(7);
         last_post = CreationDate.plusHours(1);
@@ -48,7 +49,7 @@ public class RolePlayBuilder {
 
     public void compile() {
         try {
-            PreparedStatement ps = RPManagerLoader.getSQLConnection().prepareStatement("INSERT INTO `Roleplays` (`ID`, `creation_date`, `expire_date`, `name`, `turn`, `character_ids`, `channel_id`, `status`, `last_post_date`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement ps = RPManagerLoader.getSQLConnection().prepareStatement("INSERT INTO `Roleplays` (`ID`, `creation_date`, `expire_date`, `name`, `turn`, `character_ids`, `channel_id`, `status`, `last_post_date`, `owner`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             ps.setString(1, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(CreationDate));
             ps.setString(2, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(ExpireDate));
             ps.setString(3, name);
@@ -89,6 +90,7 @@ public class RolePlayBuilder {
             ps.setString(6, chan);
             ps.setString(7, STATUS);
             ps.setString(8, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(this.last_post));
+            ps.setString(9, owner.getDiscordID());
             ps.executeUpdate();
 
             DataCache.clearRPCache();
