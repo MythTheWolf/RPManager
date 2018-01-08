@@ -99,7 +99,7 @@ public class DiscordRoleplay {
             this.characterList.add(character);
             recompile();
         }
-        sendBoardMessage(" has joined this RP as their character '" + character.getName() + "'");
+        sendBoardMessage(character.getCharacterOwner().asRawDiscordUser().getName() + " has joined this RP as their character '" + character.getName() + "'");
         getHostChannel().createPermissionOverride(RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID())).setAllow(Permission.ALL_TEXT_PERMISSIONS).complete();
     }
 

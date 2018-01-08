@@ -65,7 +65,7 @@ public class RolePlayBuilder {
             RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getRoles().forEach(role -> {
                 try {
                     if (RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).getPermissionOverride(role) == null) {
-                        RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(role).setDeny(Permission.ALL_TEXT_PERMISSIONS).queue();
+                        RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(role).setDeny(Permission.ALL_TEXT_PERMISSIONS).setAllow(Permission.MESSAGE_READ).queue();
                     }
 
                 } catch (Exception e) {
@@ -77,7 +77,6 @@ public class RolePlayBuilder {
             this.characters.forEach(character -> {
                 try {
                     Member mem = RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID());
-                    System.out.println("SET"+character.getCharacterOwner().getDiscordID());
                     if (RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).getPermissionOverride(mem) == null) {
                         RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(mem).setAllow(Permission.ALL_TEXT_PERMISSIONS).complete();
                     }
