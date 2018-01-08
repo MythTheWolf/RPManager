@@ -6,6 +6,7 @@ import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -186,6 +187,9 @@ public class DiscordRoleplay {
             RPManagerLoader.storeAllRPS();
             return;
         }
+        Member m = RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMember(c.getCharacterOwner().asRawDiscordUser());
+        getHostChannel().getPermissionOverride(m).delete().queue();
+        getHostChannel().createPermissionOverride(m).setDeny(Permission.ALL_TEXT_PERMISSIONS).setAllow(Permission.MESSAGE_READ).queue();
         this.characterList.remove(c);
         recompile();
     }
