@@ -1,4 +1,4 @@
-package com.myththewolf.RPManager.lib.RolePlay;
+package com.myththewolf.RPManager.commands;
 
 
 import com.myththewolf.BotServ.lib.API.command.CommandExecutor;

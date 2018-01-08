@@ -4,11 +4,13 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 
+import java.awt.*;
 import java.io.File;
 import java.util.UUID;
 
@@ -30,8 +32,6 @@ public class MessageEvent implements EventListener {
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
         found = false;
         target = null;
-        DataCache.clearRPCache();
-        RPManagerLoader.storeAllRPS();
         DataCache.getRoleplayMap().forEach((id, rp) -> {
             if (rp.getHostChannel().getId().equals(event.getTextChannel().getId())) {
                 found = true;
@@ -41,8 +41,17 @@ public class MessageEvent implements EventListener {
 
         if (found) {
             String message = event.getMessage().getRawContent();
-            System.out.println(message);
-            return;
+            if (!message.startsWith("((") && !message.startsWith("_")) {
+                EmbedBuilder illegal = new EmbedBuilder();
+                illegal.setColor(Color.RED);
+                illegal.setTitle("Illegal action");
+                illegal.addField("Illegeal Content:", event.getMessage().getContent(), false);
+                illegal.setDescription("All RP posts must be one of the following: \n ((*any text* for OCC messages \n \\_*Any text*\\_ for RP actions.");
+                illegal.setFooter("The illegal post has been removed. It is still your turn to post.", null);
+                user.asPrivateChannel().sendMessage(illegal.build());
+                event.getMessage().delete().queue();
+                return;
+            }
         }
         if (user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)) {
             if (user.getCharacterBuilder().getStepNumber() == 7) {

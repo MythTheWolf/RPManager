@@ -92,13 +92,7 @@ public class RolePlayBuilder {
             ps.executeUpdate();
 
             DataCache.clearRPCache();
-
-            ps = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Roleplays` WHERE `status` = ?");
-            ps.setString(1, "ACTIVE");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                DataCache.addRP(rs.getInt("ID"));
-            }
+            RPManagerLoader.storeAllRPS();
         } catch (Exception e) {
             RPManagerLoader.LogError(e);
         }
