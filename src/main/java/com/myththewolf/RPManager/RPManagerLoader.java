@@ -38,6 +38,7 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("init-data()", new minuwekk());
             botPlugin.registerCommand("^charsof", new charsof());
             botPlugin.registerCommand("^char", new character());
+            botPlugin.registerCommand("^rpaccept", new AcceptRP());
         } catch (Exception e) {
             LogError(e);
         }

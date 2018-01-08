@@ -98,6 +98,7 @@ public class DiscordRoleplay {
             this.characterList.add(character);
             recompile();
         }
+        sendBoardMessage(character.getCharacterOwner().asRawDiscordUser().getName() + " has joined this RP as their character '" + character.getName() + "'");
     }
 
     public void recompile() {
@@ -108,7 +109,7 @@ public class DiscordRoleplay {
             up.setString(3, getSerializedCharacterString());
             up.setString(4, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getLastPostDate()));
             up.setInt(5, getId());
-
+            up.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

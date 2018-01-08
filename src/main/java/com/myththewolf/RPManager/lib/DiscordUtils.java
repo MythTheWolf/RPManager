@@ -12,4 +12,13 @@ public class DiscordUtils {
         eb.setColor(Color.BLACK);
         return eb;
     }
+
+    public static boolean isInt(String test) {
+        try {
+            Integer.parseInt(test);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DiscordUser {
     private String ID;
@@ -20,6 +21,7 @@ public class DiscordUser {
     private int max_rps;
     private int reputaion;
     private CharacterBuilder CB = null;
+    private List<RolePlayRequest> requests = new ArrayList<>();
 
     public DiscordUser(String discordID) {
         PreparedStatement ps;
@@ -36,6 +38,10 @@ public class DiscordUser {
         } catch (Exception e) {
             RPManagerLoader.LogError(e);
         }
+    }
+
+    public List<RolePlayRequest> getRPRequests() {
+        return requests;
     }
 
     public void setCharacterBuilder(CharacterBuilder b) {
@@ -88,6 +94,14 @@ public class DiscordUser {
 
     public int getReputaion() {
         return reputaion;
+    }
+
+    public RolePlayRequest getRPRequestByID(String id) {
+        return getRPRequests().stream().filter(rolePlayRequest -> rolePlayRequest.getId().equals(id)).collect(Collectors.toList()).stream().findFirst().orElse(null);
+    }
+
+    public RolePlayCharacter getCharacterByID(int id) {
+        return getCharacters().stream().filter(character -> character.getID() == id).collect(Collectors.toList()).stream().findFirst().orElse(null);
     }
 
     public PrivateChannel asPrivateChannel() {
