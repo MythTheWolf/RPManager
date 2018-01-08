@@ -47,22 +47,20 @@ public class character implements CommandExecutor {
             EmbedBuilder reply = new EmbedBuilder();
             reply.setColor(Color.GREEN);
             reply.setTitle("Character Info - " + c.getName());
-            reply.addField("Name", "```" + c.getName() + "```", false);
-            reply.addField("Species", "```" + c.getSpecies() + "```", false);
-            reply.addField("Height", "```" + c.getHeight() + "```", false);
-            reply.addField("Gender/Pronouns", "```" + c.getGender() + "```", false);
-            reply.addField("Color patterns", "```" + c.getColors() + "```", false);
-            reply.addField("Sexual Preference", "```" + c.getSexuality() + "```", false);
+            reply.addField("**Name**", "```" + c.getName() + "```", false);
+            reply.addField("**Species**", "```" + c.getSpecies() + "```", false);
+            reply.addField("**Height**", "```" + c.getHeight() + "```", false);
+            reply.addField("**Gender/Pronouns**", "```" + c.getGender() + "```", false);
+            reply.addField("**Color patterns**", "```" + c.getColors() + "```", false);
+            reply.addField("**Sexual Preference**", "```" + c.getSexuality() + "```", false);
+            reply.addField("**Bio**", "```" + c.getBio() + "```", false);
+            reply.addField("**Additional Notes**", "```" + c.getNotes() + "```", false);
+            reply.setFooter("This character is property of " + c.getCharacterOwner().asRawDiscordUser().getName() + "#" + c.getCharacterOwner().asRawDiscordUser().getDiscriminator(), c.getCharacterOwner().asRawDiscordUser().getAvatarUrl());
             if (c.getReferenceImages().size() < 1) {
                 reply.setThumbnail("https://vignette.wikia.nocookie.net/janethevirgin/images/4/42/Image-not-available_1.jpg/revision/latest?cb=20150721102313");
             } else {
                 reply.setThumbnail(c.getReferenceImages().get(0));
             }
-            String bottom_build = "";
-            bottom_build += c.getBio() + "\n";
-            bottom_build += "**Additional Notes**+\n";
-            bottom_build += "```" + c.getNotes() + "```\n";
-            reply.setDescription(bottom_build);
             discordCommand.e.getTextChannel().sendMessage(reply.build()).queue();
         }
     }
