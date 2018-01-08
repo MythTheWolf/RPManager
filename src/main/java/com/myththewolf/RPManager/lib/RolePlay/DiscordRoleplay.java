@@ -4,6 +4,7 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.TextChannel;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -99,6 +100,7 @@ public class DiscordRoleplay {
             recompile();
         }
         sendBoardMessage(" has joined this RP as their character '" + character.getName() + "'");
+        getHostChannel().createPermissionOverride(RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID())).setAllow(Permission.ALL_TEXT_PERMISSIONS).complete();
     }
 
     public void recompile() {
