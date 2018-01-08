@@ -73,7 +73,8 @@ public class RolePlayBuilder {
                 }
 
             });
-            characters.forEach(character -> {
+
+            this.characters.forEach(character -> {
                 try {
                     Member mem = RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID());
                     System.out.println("SET"+character.getCharacterOwner().getDiscordID());
@@ -81,7 +82,7 @@ public class RolePlayBuilder {
                         RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(mem).setAllow(Permission.ALL_TEXT_PERMISSIONS).complete();
                     }
                 } catch (Exception e) {
-                    //create.createPermissionOverride(RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID())).setAllow(Permission.ALL_TEXT_PERMISSIONS).queue();
+                    e.printStackTrace();
                 }
 
             });
