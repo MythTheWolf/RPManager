@@ -22,7 +22,7 @@ public class DiscordRoleplay {
     private DateTime expireDate;
     private String roleplayName;
     private List<RolePlayCharacter> characterList = new ArrayList<>();
-    private TextChannel hostChannel;
+    private String hostChannelID;
     private String status;
     private String serial = "";
     private int turn = 0;
@@ -45,7 +45,7 @@ public class DiscordRoleplay {
                         this.characterList.add(new RolePlayCharacter(Integer.parseInt(it)));
                     }
                 });
-                this.hostChannel = RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(rs.getString("channel_id"));
+                this.hostChannelID = rs.getString("channel_id");
                 this.status = rs.getString("status");
             }
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class DiscordRoleplay {
     }
 
     public TextChannel getHostChannel() {
-        return hostChannel;
+        return RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(this.hostChannelID);
     }
 
     public void updateCreationDate() {
