@@ -11,6 +11,7 @@ import java.awt.*;
 public class RPExpirationDateService implements Runnable {
     @Override
     public void run() {
+        System.out.println("Running expire date check...");
         DataCache.getRoleplayMap().forEach((Integer id, DiscordRoleplay rp) -> {
             DateTime now = new DateTime();
             DateTime expireDate = rp.getExpireDate();
