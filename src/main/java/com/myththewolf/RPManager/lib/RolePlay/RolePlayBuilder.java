@@ -76,8 +76,9 @@ public class RolePlayBuilder {
             characters.forEach(character -> {
                 try {
                     Member mem = RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID());
+                    System.out.println("SET"+character.getCharacterOwner().getDiscordID());
                     if (RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).getPermissionOverride(mem) == null) {
-                        RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(mem).setAllow(Permission.ALL_TEXT_PERMISSIONS).queue();
+                        RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(mem).setAllow(Permission.ALL_TEXT_PERMISSIONS).complete();
                     }
                 } catch (Exception e) {
                     //create.createPermissionOverride(RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID())).setAllow(Permission.ALL_TEXT_PERMISSIONS).queue();
