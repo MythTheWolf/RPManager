@@ -57,7 +57,7 @@ public class RolePlayBuilder {
             this.characters.forEach(c -> {
                 chars += c.getID() + ",";
             });
-            ps.setString(5, chars);
+            ps.setString(5, chars.substring(0, chars.length() - 1));
             String tid = RPManagerLoader.INSTANCE.getJDAInstance().getCategoryById(this.cat_id).createTextChannel(name).complete().getId();
             TextChannel create = RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid);
             ChannelManager man = new ChannelManager(create);
