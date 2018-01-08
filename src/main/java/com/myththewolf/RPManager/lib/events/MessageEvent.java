@@ -71,8 +71,7 @@ public class MessageEvent implements EventListener {
                 target.push();
                 return;
             }
-        }
-        if (user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)) {
+        } else if (user.getCharacterBuilder() != null && event.isFromType(ChannelType.PRIVATE)) {
             if (user.getCharacterBuilder().getStepNumber() == 7) {
                 if (event.getMessage().getContent().equals("done")) {
                     user.getCharacterBuilder().commit();
