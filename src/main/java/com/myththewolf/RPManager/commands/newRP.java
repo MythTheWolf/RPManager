@@ -33,6 +33,7 @@ public class newRP implements CommandExecutor {
         rolePlayBuilder.setName(discordCommand.getArgs()[0]);
         RolePlayCharacter sel = self.getCharacterByID(cid);
         rolePlayBuilder.initCharacter(sel);
+        discordCommand.reply(":timer: Compiling...");
         rolePlayBuilder.compile();
         discordCommand.reply(":ok_hand: Created!");
         DataCache.updateUser(new DiscordUser(discordCommand.getSender().getId()));
