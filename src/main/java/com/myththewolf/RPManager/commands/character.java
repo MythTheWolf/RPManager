@@ -70,8 +70,9 @@ public class character implements CommandExecutor {
                 for (String S : discordCommand.getArgs()) {
                     build += S + " ";
                 }
-                PreparedStatement ps = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Characters` WHERE `name` LIKE ?");
-                ps.setString(1, build + "%");
+                String sql = "SELECT * FROM `Characters` WHERE `name` LIKE \"" + build + "%\"";
+                PreparedStatement ps = RPManagerLoader.getSQLConnection().prepareStatement(sql);
+                discordCommand.reply("Debug::"+sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     didthedo = true;
