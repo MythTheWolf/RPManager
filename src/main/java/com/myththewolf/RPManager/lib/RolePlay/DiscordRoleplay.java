@@ -123,11 +123,13 @@ public class DiscordRoleplay {
     }
 
     public void push() {
+        this.lastPost = new DateTime();
         if (turn + 1 > this.getCharacterList().size() - 1) {
             turn = 0;
         } else {
             turn++;
         }
+        System.out.println("TURN::"+turn);
         recompile();
     }
 
