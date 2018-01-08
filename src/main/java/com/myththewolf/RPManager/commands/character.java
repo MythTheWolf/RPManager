@@ -50,7 +50,7 @@ public class character implements CommandExecutor {
                 bottom_build += "**Additional Notes**+\n";
                 bottom_build += "```" + c.getNotes() + "```\n";
                 reply.setDescription(bottom_build);
-                discordCommand.reply(reply);
+                discordCommand.e.getTextChannel().sendMessage(reply.build()).queue();
             }
         }
     }
