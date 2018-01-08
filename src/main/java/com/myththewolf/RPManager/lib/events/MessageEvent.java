@@ -36,10 +36,8 @@ public class MessageEvent implements EventListener {
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
         found = false;
         target = null;
-        DataCache.clearRPCache();
-        RPManagerLoader.storeAllRPS();
         DataCache.getRoleplayMap().forEach((id, rp) -> {
-            if (rp.getHostChannel().getId().equals(event.getTextChannel().getId())) {
+            if (event.getChannelType().equals(ChannelType.TEXT) && rp.getHostChannel().getId().equals(event.getTextChannel().getId())) {
                 found = true;
                 target = rp;
             }
