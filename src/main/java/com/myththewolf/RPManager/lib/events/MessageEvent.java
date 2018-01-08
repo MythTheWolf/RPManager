@@ -45,10 +45,11 @@ public class MessageEvent implements EventListener {
                 EmbedBuilder illegal = new EmbedBuilder();
                 illegal.setColor(Color.RED);
                 illegal.setTitle("Illegal action");
+                illegal.addField("RP Name:",target.getRoleplayName(),false);
                 illegal.addField("Illegeal Content:", event.getMessage().getContent(), false);
                 illegal.setDescription("All RP posts must be one of the following: \n ((*any text* for OCC messages \n \\_*Any text*\\_ for RP actions.");
                 illegal.setFooter("The illegal post has been removed. It is still your turn to post.", null);
-                user.asPrivateChannel().sendMessage(illegal.build());
+                user.asPrivateChannel().sendMessage(illegal.build()).queue();
                 event.getMessage().delete().queue();
                 return;
             }
