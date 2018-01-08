@@ -123,7 +123,8 @@ public class DiscordRoleplay {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DataCache.updateRolePlay(this);
+        DataCache.clearRPCache();
+        RPManagerLoader.storeAllRPS();
     }
 
     public boolean expired() {
