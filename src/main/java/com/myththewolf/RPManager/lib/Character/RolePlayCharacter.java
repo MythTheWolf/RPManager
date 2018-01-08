@@ -1,6 +1,7 @@
 package com.myththewolf.RPManager.lib.Character;
 
 import com.myththewolf.RPManager.RPManagerLoader;
+import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
@@ -43,13 +44,11 @@ public class RolePlayCharacter {
                 if (!rs.getString("image_urls").isEmpty()) {
                     Arrays.stream(rs.getString("image_urls").split(",")).forEach(con -> this.refs.add(con));
                 }
-                characterOwner = new DiscordUser(rs.getString("owner_discord_id"));
-                PreparedStatement search = RPManagerLoader.getSQLConnection().prepareStatement("SELECT * FROM `Roleplays` WHERE `character_ids` LIKE \"%," + charID + "\" OR `character_ids` LIKE \"%," + charID + ",%\" AND `status` = ?");
-                search.setString(1, "ACTIVE");
-                ResultSet two = search.executeQuery();
-                while (two.next()) {
-                    activeRoleplays.add(new DiscordRoleplay(two.getInt("ID")));
-                }
+                DataCache.getRoleplayMap().forEach((key, val) -> {
+                    if (val.getCharacterList().contains(this)) {
+                        this.activeRoleplays.add(val);
+                    }
+                });
             }
         } catch (SQLException e) {
             RPManagerLoader.LogError(e);
