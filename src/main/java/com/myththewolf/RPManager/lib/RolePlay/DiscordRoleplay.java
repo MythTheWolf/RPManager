@@ -124,8 +124,8 @@ public class DiscordRoleplay {
     }
 
     public void push() {
-        System.out.println("push..");
         this.lastPost = new DateTime();
+        this.expireDate = new DateTime().plusDays(7);
         if (turn + 1 > this.getCharacterList().size() - 1) {
             turn = 0;
         } else {
@@ -166,6 +166,7 @@ public class DiscordRoleplay {
 
     public void archive() {
         this.status = "ARCHIVED";
+        getHostChannel().delete().queue();
         recompile();
     }
 }
