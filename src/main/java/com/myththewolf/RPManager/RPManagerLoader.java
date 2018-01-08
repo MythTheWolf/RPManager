@@ -96,7 +96,7 @@ public class RPManagerLoader implements PluginAdapter {
         exec.scheduleAtFixedRate(new RPExpirationDateService(), 0, 24, TimeUnit.HOURS);
     }
 
-    public void storeAllRPS() {
+    public static void storeAllRPS() {
         try {
             PreparedStatement ps = getSQLConnection().prepareStatement("SELECT * FROM `Roleplays` WHERE `status` = ?");
             ps.setString(1, "ACTIVE");

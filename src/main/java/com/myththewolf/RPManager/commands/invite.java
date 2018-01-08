@@ -2,6 +2,7 @@ package com.myththewolf.RPManager.commands;
 
 import com.myththewolf.BotServ.lib.API.command.CommandExecutor;
 import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
+import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.RolePlay.RolePlayRequest;
@@ -13,6 +14,8 @@ public class invite implements CommandExecutor {
 
     @Override
     public void onCommand(DiscordCommand discordCommand) {
+        DataCache.clearRPCache();
+        RPManagerLoader.storeAllRPS();
         String chanID = discordCommand.e.getTextChannel().getId();
         found = false;
         target = null;
