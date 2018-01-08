@@ -4,6 +4,7 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
 import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.managers.ChannelManager;
 import org.joda.time.DateTime;
@@ -61,10 +62,26 @@ public class RolePlayBuilder {
             ChannelManager man = new ChannelManager(create);
             man.setNSFW(true).queue();
             RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getRoles().forEach(role -> {
-                create.createPermissionOverride(role).setDeny(Permission.ALL_TEXT_PERMISSIONS).queue();
+                try {
+                    if (RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).getPermissionOverride(role) == null) {
+                        RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(role).setDeny(Permission.ALL_TEXT_PERMISSIONS).queue();
+                    }
+
+                } catch (Exception e) {
+
+                }
+
             });
             characters.forEach(character -> {
-                create.createPermissionOverride(RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID())).setAllow(Permission.ALL_TEXT_PERMISSIONS).queue();
+                try {
+                    Member mem = RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID());
+                    if (RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).getPermissionOverride(mem) == null) {
+                        RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(mem).setAllow(Permission.ALL_TEXT_PERMISSIONS).queue();
+                    }
+                } catch (Exception e) {
+                    //create.createPermissionOverride(RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMemberById(character.getCharacterOwner().getDiscordID())).setAllow(Permission.ALL_TEXT_PERMISSIONS).queue();
+                }
+
             });
             String chan = create.getId();
             ps.setString(6, chan);
