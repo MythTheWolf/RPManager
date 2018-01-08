@@ -106,8 +106,8 @@ public class DiscordRoleplay {
             PreparedStatement up = RPManagerLoader.getSQLConnection().prepareStatement("UPDATE `Roleplays` SET `expire_date` = ?, `name` = ?, `last_post_date` = ?, `character_ids` = ?  WHERE `ID` = ?");
             up.setString(1, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getExpireDate()));
             up.setString(2, getRoleplayName());
-            up.setString(3, getSerializedCharacterString());
-            up.setString(4, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getLastPostDate()));
+            up.setString(3, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getLastPostDate()));
+            up.setString(4, getSerializedCharacterString());
             up.setInt(5, getId());
             up.executeUpdate();
         } catch (Exception e) {
