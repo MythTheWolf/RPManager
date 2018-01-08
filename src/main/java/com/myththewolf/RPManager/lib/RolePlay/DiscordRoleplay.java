@@ -189,8 +189,12 @@ public class DiscordRoleplay {
         }
         Member m = RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getMember(c.getCharacterOwner().asRawDiscordUser());
         getHostChannel().getPermissionOverride(m).delete().queue();
-        getHostChannel().createPermissionOverride(m).setDeny(Permission.ALL_TEXT_PERMISSIONS).setAllow(Permission.MESSAGE_READ).queue();
         this.characterList.remove(c);
+        EmbedBuilder left = new EmbedBuilder();
+        left.setColor(Color.GRAY);
+        left.setTitle("Character Left");
+        left.setDescription(c.getCharacterOwner().asRawDiscordUser().getName() + " left the RP.");
+        getHostChannel().sendMessage(left.build()).queue();
         recompile();
     }
 }
