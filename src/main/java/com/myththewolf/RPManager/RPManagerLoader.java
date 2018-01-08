@@ -5,6 +5,7 @@ import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
 import com.myththewolf.RPManager.commands.*;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.RolePlay.mychars;
 import com.myththewolf.RPManager.lib.Services.LastPostCheckService;
 import com.myththewolf.RPManager.lib.Services.RPExpirationDateService;
 import com.myththewolf.RPManager.lib.events.MessageEvent;
@@ -41,6 +42,7 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("^rpaccept", new AcceptRP());
             botPlugin.registerCommand("^newrp", new newRP());
             botPlugin.registerCommand("^invite", new invite());
+            botPlugin.registerCommand("^mychars",new mychars());
         } catch (Exception e) {
             LogError(e);
         }
