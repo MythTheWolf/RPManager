@@ -98,7 +98,7 @@ public class DiscordRoleplay {
             this.characterList.add(character);
             recompile();
         }
-        sendBoardMessage(character.getCharacterOwner().asRawDiscordUser().getName() + " has joined this RP as their character '" + character.getName() + "'");
+        sendBoardMessage(" has joined this RP as their character '" + character.getName() + "'");
     }
 
     public void recompile() {
