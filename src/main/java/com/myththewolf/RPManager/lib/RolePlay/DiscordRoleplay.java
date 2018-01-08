@@ -50,6 +50,7 @@ public class DiscordRoleplay {
                 this.hostChannelID = rs.getString("channel_id");
                 this.status = rs.getString("status");
                 this.owner = DataCache.getDiscordUserByID(rs.getString("owner"));
+                this.turn = rs.getInt("turn");
             }
         } catch (Exception e) {
             RPManagerLoader.LogError(e);
