@@ -39,6 +39,7 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("^invite", new invite());
             botPlugin.registerCommand("^mychars", new mychars());
             botPlugin.registerCommand("^turn", new whosturn());
+            botPlugin.registerCommand("^leave", new leaverp());
         } catch (Exception e) {
             LogError(e);
         }
