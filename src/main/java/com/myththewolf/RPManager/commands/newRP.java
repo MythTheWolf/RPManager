@@ -12,7 +12,7 @@ import com.myththewolf.RPManager.lib.User.DiscordUser;
 import java.util.stream.Collectors;
 
 
-public class newRP implements CommandExecutor{
+public class newRP implements CommandExecutor {
     @Override
     public void onCommand(DiscordCommand discordCommand) {
         if (discordCommand.getArgs().length < 2) {
@@ -35,5 +35,6 @@ public class newRP implements CommandExecutor{
         rolePlayBuilder.initCharacter(sel);
         rolePlayBuilder.compile();
         discordCommand.reply(":ok_hand: Created!");
+        DataCache.updateUser(new DiscordUser(discordCommand.getSender().getId()));
     }
 }
