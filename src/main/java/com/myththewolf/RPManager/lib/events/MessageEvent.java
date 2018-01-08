@@ -52,7 +52,7 @@ public class MessageEvent implements EventListener {
                 user.asPrivateChannel().sendMessage(illegal.build()).queue();
                 event.getMessage().delete().queue();
                 return;
-            } else if (!target.getStagedCharacter().equals(user) && !message.startsWith("((")) {
+            } else if (!target.getStagedCharacter().getCharacterOwner().equals(user) && !message.startsWith("((")) {
                 EmbedBuilder illegal = new EmbedBuilder();
                 illegal.setColor(Color.RED);
                 illegal.setTitle("Illegal action");
