@@ -123,9 +123,8 @@ public class DiscordRoleplay {
     }
 
     public void push() {
-        if (turn == getCharacterList().size() - 1) {
+        if (turn + 1 > this.getCharacterList().size() - 1) {
             turn = 0;
-            lastPost = new DateTime();
         } else {
             turn++;
         }
