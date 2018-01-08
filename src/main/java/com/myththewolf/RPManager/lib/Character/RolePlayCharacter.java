@@ -5,6 +5,7 @@ import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
+import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,6 +50,7 @@ public class RolePlayCharacter {
                         this.activeRoleplays.add(val);
                     }
                 });
+                characterOwner = DataCache.getDiscordUserByID(rs.getString("discord_owner_id"));
             }
         } catch (SQLException e) {
             RPManagerLoader.LogError(e);
