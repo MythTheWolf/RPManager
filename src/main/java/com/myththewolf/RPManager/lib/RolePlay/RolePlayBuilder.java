@@ -12,6 +12,7 @@ import org.joda.time.format.DateTimeFormat;
 import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RolePlayBuilder {
@@ -32,6 +33,7 @@ public class RolePlayBuilder {
         last_post = CreationDate.plusHours(1);
         turn = 0;
         cat_id = RPManagerLoader.INSTANCE.getJSONConfig().isNull("RP-CAT") ? RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getCategories().get(0).getId() : RPManagerLoader.INSTANCE.getJSONConfig().getString("RP-CAT");
+        characters = new ArrayList<>();
     }
 
     public void setName(String name) {
