@@ -39,6 +39,7 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("^charsof", new charsof());
             botPlugin.registerCommand("^char", new character());
             botPlugin.registerCommand("^rpaccept", new AcceptRP());
+            botPlugin.registerCommand("^newrp", new newRP());
         } catch (Exception e) {
             LogError(e);
         }
