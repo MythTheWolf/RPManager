@@ -1,4 +1,4 @@
-package com.myththewolf.RPManager.lib.Character;
+package com.myththewolf.RPManager.lib.RolePlay.Character;
 
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.DataCache;
@@ -73,7 +73,6 @@ public class CharacterBuilder {
             PS.setString(2, SEXUALITY);
             PS.setString(3, NAME);
             PS.setString(4, BIO);
-            System.out.println("Species--> " + this.SPECIES);
             PS.setString(5, GENDER);
             PS.setString(6, SPECIES);
             PS.setString(7, HEIGHT);

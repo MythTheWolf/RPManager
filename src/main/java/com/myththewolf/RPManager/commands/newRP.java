@@ -2,11 +2,10 @@ package com.myththewolf.RPManager.commands;
 
 import com.myththewolf.BotServ.lib.API.command.CommandExecutor;
 import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
-import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
+import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.DiscordUtils;
 import com.myththewolf.RPManager.lib.RolePlay.RolePlayBuilder;
-import com.myththewolf.RPManager.lib.RolePlay.RolePlayRequest;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
 import java.util.stream.Collectors;

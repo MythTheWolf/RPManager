@@ -1,11 +1,10 @@
-package com.myththewolf.RPManager.lib.Character;
+package com.myththewolf.RPManager.lib.RolePlay.Character;
 
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 
-import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -3,10 +3,7 @@ package com.myththewolf.RPManager.commands;
 import com.myththewolf.BotServ.lib.API.command.CommandExecutor;
 import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
 import com.myththewolf.RPManager.RPManagerLoader;
-import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
-import com.myththewolf.RPManager.lib.DataCache;
-import com.myththewolf.RPManager.lib.DiscordUtils;
-import com.myththewolf.RPManager.lib.User.DiscordUser;
+import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 
@@ -20,7 +17,7 @@ public class character implements CommandExecutor {
     @Override
     public void onCommand(DiscordCommand discordCommand) {
         if (discordCommand.getArgs().length < 1) {
-            discordCommand.failed("Command requires 1 argument. See `!man character` for more info.");
+            discordCommand.failed("Command requires 1 argument. See `!man char` for more info.");
             return;
         }
 

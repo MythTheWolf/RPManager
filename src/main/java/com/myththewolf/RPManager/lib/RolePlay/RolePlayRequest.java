@@ -1,6 +1,6 @@
 package com.myththewolf.RPManager.lib.RolePlay;
 
-import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
+import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 
 import java.util.UUID;
 

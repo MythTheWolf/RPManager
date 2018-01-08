@@ -1,9 +1,8 @@
 package com.myththewolf.RPManager.lib.User;
 
 import com.myththewolf.RPManager.RPManagerLoader;
-import com.myththewolf.RPManager.lib.Character.CharacterBuilder;
-import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
-import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.RolePlay.Character.CharacterBuilder;
+import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.RolePlay.RolePlayRequest;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.PrivateChannel;
