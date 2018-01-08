@@ -63,7 +63,7 @@ public class MessageEvent implements EventListener {
                 user.asPrivateChannel().sendMessage(illegal.build()).queue();
                 event.getMessage().delete().queue();
                 return;
-            } else if (target.getStagedCharacter().equals(user) && message.startsWith("_")) {
+            } else if (target.getStagedCharacter().getCharacterOwner().equals(user) && message.startsWith("_")) {
                 target.push();
                 return;
             }
