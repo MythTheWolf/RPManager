@@ -10,8 +10,6 @@ import java.awt.*;
 public class LastPostCheckService implements Runnable {
     @Override
     public void run() {
-        System.out.println("check");
-
         DataCache.getRoleplayMap().forEach((id, rp) -> {
             DateTime lastPost = rp.getLastPostDate();
             DateTime lastPing = rp.getLastPing();
@@ -24,7 +22,7 @@ public class LastPostCheckService implements Runnable {
                 warning.setTitle(":timer: Your turn to post!");
                 warning.addField("RP name", "```" + rp.getRoleplayName() + "```", false);
                 warning.addField("RP Character name:", "```" + rp.getStagedCharacter().getName() + "```", false);
-                warning.setFooter("You will be pinged every 16 hours, and you will lose 4 reputation every 16 hours until you reply.", null);
+                warning.setFooter("The RP thread is blocked until you reply! Run ^rpleave in the channel if you wish to leave.", null);
                 rp.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(warning.build()).queue();
                 rp.setLastPing(now);
             }

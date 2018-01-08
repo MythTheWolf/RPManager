@@ -26,9 +26,13 @@ public class MessageEvent implements EventListener {
         if (((MessageReceivedEvent) eve).getAuthor().isBot()) {
             return;
         }
+
         escape = false;
         found = false;
         MessageReceivedEvent event = (MessageReceivedEvent) eve;
+        if (event.getMessage().getContent().startsWith("^")) {
+            return;
+        }
         DiscordUser user = DataCache.getDiscordUserByID(event.getAuthor().getId());
         found = false;
         target = null;
