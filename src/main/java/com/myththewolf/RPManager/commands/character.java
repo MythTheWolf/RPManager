@@ -5,13 +5,13 @@ import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
 import com.myththewolf.RPManager.lib.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.DiscordUtils;
-import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
 
-import javax.management.relation.Role;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class character implements CommandExecutor {
     @Override
@@ -24,10 +24,12 @@ public class character implements CommandExecutor {
         if (isInt(discordCommand.getArgs()[0])) {
             List<RolePlayCharacter> possible = new ArrayList<>();
             DataCache.getUserMap().forEach((key, val) -> {
-                val.getCharacters().stream().filter(character -> character.getID() == Integer.parseInt(discordCommand.getArgs()[0])).map(possible::add);
+                val.getCharacters().stream().filter(character -> character.getID() == Integer.parseInt(discordCommand.getArgs()[0])).collect(Collectors.toList()).forEach(d -> {
+                    possible.add(d);
+                });
             });
             if (possible.size() < 1) {
-                discordCommand.reply(DiscordUtils.systemWarningMessage("No results for character ID '" + discordCommand.getArgs()[0]) + "'");
+                discordCommand.reply("nun");
                 return;
             } else {
                 EmbedBuilder reply = new EmbedBuilder();
@@ -50,7 +52,7 @@ public class character implements CommandExecutor {
                 bottom_build += "**Additional Notes**+\n";
                 bottom_build += "```" + c.getNotes() + "```\n";
                 reply.setDescription(bottom_build);
-               // discordCommand.e.getTextChannel().sendMessage(reply.build()).queue();
+                discordCommand.e.getTextChannel().sendMessage(reply.build()).queue();
             }
         }
     }
