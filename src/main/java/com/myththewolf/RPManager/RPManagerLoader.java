@@ -3,10 +3,7 @@ package com.myththewolf.RPManager;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
-import com.myththewolf.RPManager.commands.CharacterWizard;
-import com.myththewolf.RPManager.commands.Eval;
-import com.myththewolf.RPManager.commands.charsof;
-import com.myththewolf.RPManager.commands.minuwekk;
+import com.myththewolf.RPManager.commands.*;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.Services.LastPostCheckService;
 import com.myththewolf.RPManager.lib.Services.RPExpirationDateService;
@@ -40,6 +37,7 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("^charwizard", new CharacterWizard());
             botPlugin.registerCommand("init-data()", new minuwekk());
             botPlugin.registerCommand("^charsof", new charsof());
+            botPlugin.registerCommand("^char", new character());
         } catch (Exception e) {
             LogError(e);
         }

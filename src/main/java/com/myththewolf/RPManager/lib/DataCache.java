@@ -72,4 +72,8 @@ public class DataCache {
     public static void addRP(int id) {
         ROLEPLAYS.put(id, new DiscordRoleplay(id));
     }
+
+    public static HashMap<String, DiscordUser> getUserMap() {
+        return new HashMap<>(USERS);
+    }
 }
