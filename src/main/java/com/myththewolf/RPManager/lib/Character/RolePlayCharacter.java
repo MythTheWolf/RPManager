@@ -50,7 +50,7 @@ public class RolePlayCharacter {
                         this.activeRoleplays.add(val);
                     }
                 });
-                characterOwner = DataCache.getDiscordUserByID(rs.getString("discord_owner_id"));
+                characterOwner = DataCache.getDiscordUserByID(rs.getString("owner_discord_id"));
             }
         } catch (SQLException e) {
             RPManagerLoader.LogError(e);
