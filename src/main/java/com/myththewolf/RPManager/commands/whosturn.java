@@ -1,9 +1,10 @@
-package com.myththewolf.RPManager.lib.RolePlay;
+package com.myththewolf.RPManager.commands;
 
 import com.myththewolf.BotServ.lib.API.command.CommandExecutor;
 import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
 import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.awt.*;

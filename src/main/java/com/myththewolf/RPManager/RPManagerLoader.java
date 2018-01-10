@@ -6,7 +6,7 @@ import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
 import com.myththewolf.RPManager.commands.*;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.commands.mychars;
-import com.myththewolf.RPManager.lib.RolePlay.whosturn;
+import com.myththewolf.RPManager.commands.whosturn;
 import com.myththewolf.RPManager.lib.Services.LastPostCheckService;
 import com.myththewolf.RPManager.lib.Services.RPExpirationDateService;
 import com.myththewolf.RPManager.lib.events.MessageEvent;
@@ -39,6 +39,8 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("^mychars", new mychars());
             botPlugin.registerCommand("^turn", new whosturn());
             botPlugin.registerCommand("^leave", new leaverp());
+            botPlugin.registerCommand("^excluderole",new excluderole());
+            //TODO: ^close ^kick  ^rprequests ^myrps ^exclude ^excluderole
         } catch (Exception e) {
             LogError(e);
         }

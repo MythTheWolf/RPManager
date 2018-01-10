@@ -21,11 +21,10 @@ public class Eval implements CommandExecutor {
 
 
             DiscordUser self = new DiscordUser(discordCommand.getSender().getId());
-            engine.set("self",self );
+            engine.set("self", self);
 
 
-
-self.getCharacters().size();
+            self.getCharacters().size();
             String bb = "";
             bb += "";
 
