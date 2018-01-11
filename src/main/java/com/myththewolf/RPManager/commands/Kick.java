@@ -37,7 +37,7 @@ public class Kick implements CommandExecutor {
             discordCommand.failed("You must be the owner of this channel.");
             return;
         }
-        discordCommand.e.getMessage().getMentionedUsers().forEach(user -> target.getCharacterList().stream().filter(rolePlayCharacter -> rolePlayCharacter.getCharacterOwner().equals(self)).findFirst().ifPresent(rolePlayCharacter -> target.removeCharacter(rolePlayCharacter)));
+        discordCommand.e.getMessage().getMentionedUsers().forEach(MentiondUser -> DataCache.getDiscordUserByID(MentiondUser.getId()).getCharacters().stream().filter(character -> target.getCharacterList().contains(character)).forEach(target::removeCharacter));
         discordCommand.reply("Removed User(s)");
     }
 }
