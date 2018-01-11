@@ -20,6 +20,7 @@ public class MessageEvent implements EventListener {
     boolean found;
     DiscordRoleplay target;
     DateTime lastcommand;
+
     public void onEvent(Event eve) {
         if (!(eve instanceof MessageReceivedEvent)) {
             return;
@@ -46,18 +47,18 @@ public class MessageEvent implements EventListener {
 
         if (found) {
             String message = event.getMessage().getRawContent();
-            if (!message.startsWith("((") && !message.startsWith("_")) {
+            if (!message.startsWith("((") && !message.startsWith("_") && !message.startsWith("*") & !message.startsWith("(") && !message.startsWith("//")) {
                 EmbedBuilder illegal = new EmbedBuilder();
                 illegal.setColor(Color.RED);
                 illegal.setTitle("Illegal action");
                 illegal.addField("RP Name:", target.getRoleplayName(), false);
                 illegal.addField("Illegal Content:", event.getMessage().getContent(), false);
-                illegal.setDescription("All RP posts must be one of the following: \n ((\\*any text\\* for OCC messages \n \\_\\*Any text\\*\\_ for RP actions.");
+                illegal.setDescription("All RP posts must be one of the following: \n ((\\*any text\\* for OCC messages \n \\_\\*Any text\\*\\_, or \\*Any text\\* for RP actions.");
                 illegal.setFooter("The illegal post has been removed. It is still your turn to post.", null);
                 user.asPrivateChannel().sendMessage(illegal.build()).queue();
                 event.getMessage().delete().queue();
                 return;
-            } else if (!target.getStagedCharacter().getCharacterOwner().equals(user) && !message.startsWith("((")) {
+            } else if (!target.getStagedCharacter().getCharacterOwner().equals(user) && (!message.startsWith("((") && !message.startsWith("//") && !message.startsWith("("))) {
                 EmbedBuilder illegal = new EmbedBuilder();
                 illegal.setColor(Color.RED);
                 illegal.setTitle("Illegal action");
