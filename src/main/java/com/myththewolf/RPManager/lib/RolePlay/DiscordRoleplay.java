@@ -4,6 +4,7 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
+import javafx.scene.input.DataFormat;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Member;
@@ -52,6 +53,11 @@ public class DiscordRoleplay {
                 this.status = rs.getString("status");
                 this.owner = DataCache.getDiscordUserByID(rs.getString("owner"));
                 this.turn = rs.getInt("turn");
+                if (!(rs.getString("last_ping") == null) && !rs.getString("last_ping").equals("")) {
+                    this.lastPing = DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).parseDateTime(rs.getString("last_ping"));
+                } else {
+                    this.lastPing = new DateTime();
+                }
             }
         } catch (Exception e) {
             RPManagerLoader.LogError(e);
@@ -114,14 +120,15 @@ public class DiscordRoleplay {
 
     public void recompile() {
         try {
-            PreparedStatement up = RPManagerLoader.getSQLConnection().prepareStatement("UPDATE `Roleplays` SET `expire_date` = ?, `name` = ?, `last_post_date` = ?, `character_ids` = ?, `turn` = ?, `status` = ?  WHERE `ID` = ?");
+            PreparedStatement up = RPManagerLoader.getSQLConnection().prepareStatement("UPDATE `Roleplays` SET `expire_date` = ?, `name` = ?, `last_post_date` = ?, `character_ids` = ?, `turn` = ?, `status` = ?, `last_ping` = ?  WHERE `ID` = ?");
             up.setString(1, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getExpireDate()));
             up.setString(2, getRoleplayName());
             up.setString(3, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getLastPostDate()));
             up.setString(4, getSerializedCharacterString());
             up.setInt(5, turn);
             up.setString(6, getStatus());
-            up.setInt(7, getId());
+            up.setString(7, DateTimeFormat.forPattern(DataCache.SYSTEM_DATE_FORMAT).print(getLastPing()));
+            up.setInt(8, getId());
             up.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,7 +162,7 @@ public class DiscordRoleplay {
 
 
     public boolean equals(Object obj) {
-        if (obj instanceof DiscordRoleplay) if (((DiscordRoleplay) obj).getId() == this.getId()) return true;
+        if (obj instanceof DiscordRoleplay) return ((DiscordRoleplay) obj).getId() == this.getId();
         return false;
     }
 

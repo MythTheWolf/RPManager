@@ -41,13 +41,14 @@ public class exclude implements CommandExecutor {
             DiscordUser dc = DataCache.getDiscordUserByID(user.getId());
             if (dc.getCharacters().stream().anyMatch(character -> target.getCharacterList().stream().anyMatch(ch -> ch.equals(character)))) {
                 errors += " - " + user.getName() + "\n";
-                discordCommand.reply("Errored::"+user.getName()+"");
+            }else {
+                target.getHostChannel().getPermissionOverride(discordCommand.e.getMember()).delete().queue();
             }
         });
         if (!errors.equals("noerror")) {
             EmbedBuilder warn = new EmbedBuilder();
             warn.setTitle("Friendly Error");
-            warn.addField("The following users could not be exempted:", "```" + errors.substring("noerror".length(), errors.length()) + "```", false);
+            warn.addField("The following users could not be exempted:", "```" + errors.replaceAll("noerror", "") + "```", false);
             warn.setDescription("These users have active characters in this roleplay");
             discordCommand.reply(warn);
         } else {

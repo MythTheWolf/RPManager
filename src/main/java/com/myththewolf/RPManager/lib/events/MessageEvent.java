@@ -9,6 +9,7 @@ import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
+import org.joda.time.DateTime;
 
 import java.awt.*;
 import java.io.File;
@@ -18,7 +19,7 @@ public class MessageEvent implements EventListener {
     boolean escape;
     boolean found;
     DiscordRoleplay target;
-
+    DateTime lastcommand;
     public void onEvent(Event eve) {
         if (!(eve instanceof MessageReceivedEvent)) {
             return;

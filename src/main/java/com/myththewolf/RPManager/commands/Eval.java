@@ -4,6 +4,7 @@ import bsh.Interpreter;
 import com.myththewolf.BotServ.lib.API.command.CommandExecutor;
 import com.myththewolf.BotServ.lib.API.command.DiscordCommand;
 import com.myththewolf.RPManager.RPManagerLoader;
+import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
 
@@ -23,7 +24,8 @@ public class Eval implements CommandExecutor {
             DiscordUser self = new DiscordUser(discordCommand.getSender().getId());
             engine.set("self", self);
 
-
+            DataCache cache = new DataCache();
+            engine.set("cache", cache);
             self.getCharacters().size();
             String bb = "";
             bb += "";
