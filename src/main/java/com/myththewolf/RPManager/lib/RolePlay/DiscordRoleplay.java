@@ -4,7 +4,6 @@ import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
-import javafx.scene.input.DataFormat;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Member;
