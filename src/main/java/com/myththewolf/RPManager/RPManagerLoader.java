@@ -7,6 +7,7 @@ import com.myththewolf.RPManager.commands.*;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.commands.mychars;
 import com.myththewolf.RPManager.commands.whosturn;
+import com.myththewolf.RPManager.lib.Services.HardExpirationCheckService;
 import com.myththewolf.RPManager.lib.Services.LastPostCheckService;
 import com.myththewolf.RPManager.lib.Services.RPExpirationDateService;
 import com.myththewolf.RPManager.lib.events.MessageEvent;
@@ -93,6 +94,8 @@ public class RPManagerLoader implements PluginAdapter {
         executor.scheduleAtFixedRate(new LastPostCheckService(), 0, 3, TimeUnit.SECONDS);
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
         exec.scheduleAtFixedRate(new RPExpirationDateService(), 0, 24, TimeUnit.HOURS);
+        ScheduledExecutorService exec3 = Executors.newScheduledThreadPool(1);
+        exec3.scheduleAtFixedRate(new HardExpirationCheckService(), 0, 16, TimeUnit.HOURS);
     }
 
     public static void storeAllRPS() {
