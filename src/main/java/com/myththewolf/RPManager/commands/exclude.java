@@ -44,7 +44,7 @@ public class exclude implements CommandExecutor {
                 discordCommand.reply("Errored::"+user.getName()+"");
             }
         });
-        if (errors.equals("noerror")) {
+        if (!errors.equals("noerror")) {
             EmbedBuilder warn = new EmbedBuilder();
             warn.setTitle("Friendly Error");
             warn.addField("The following users could not be exempted:", "```" + errors.substring("noerror".length(), errors.length()) + "```", false);
