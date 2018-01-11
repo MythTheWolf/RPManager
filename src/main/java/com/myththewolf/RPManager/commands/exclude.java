@@ -41,6 +41,7 @@ public class exclude implements CommandExecutor {
             DiscordUser dc = DataCache.getDiscordUserByID(user.getId());
             if (dc.getCharacters().stream().anyMatch(character -> target.getCharacterList().stream().anyMatch(ch -> ch.equals(character)))) {
                 errors += " - " + user.getName() + "\n";
+                discordCommand.reply("Errored::"+user.getName()+"");
             }
         });
         if (errors.equals("noerror")) {
