@@ -42,7 +42,8 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("^leave", new leaverp());
             botPlugin.registerCommand("^excluderole", new excluderole());
             botPlugin.registerCommand("^exclude", new exclude());
-            //TODO: ^kick ^rprequests ^myrps ^help
+            botPlugin.registerCommand("^kick", new Kick());
+            //TODO: ^rprequests ^myrps ^help ^close ^renew ^forceclose
         } catch (Exception e) {
             LogError(e);
         }
