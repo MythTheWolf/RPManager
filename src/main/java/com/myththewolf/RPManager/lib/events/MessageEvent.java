@@ -54,7 +54,7 @@ public class MessageEvent implements EventListener {
                 illegal.addField("RP Name:", target.getRoleplayName(), false);
                 illegal.addField("Illegal Content:", event.getMessage().getContent(), false);
                 illegal.setDescription("All RP posts must be one of the following: \n ((\\*any text\\* for OCC messages \n \\_\\*Any text\\*\\_, or \\*Any text\\* for RP actions.");
-                illegal.setFooter("The illegal post has been removed. It is still your turn to post.", null);
+                illegal.setFooter("See !man roleplaying", null);
                 user.asPrivateChannel().sendMessage(illegal.build()).queue();
                 event.getMessage().delete().queue();
                 return;
@@ -65,11 +65,11 @@ public class MessageEvent implements EventListener {
                 illegal.addField("RP Name:", target.getRoleplayName(), false);
                 illegal.addField("Illegal Content:", event.getMessage().getContent(), false);
                 illegal.setDescription("It is not your turn to post. You may only post OOC actions.");
-                illegal.setFooter("The illegal post has been removed. You may still use OOC messages.", null);
+                illegal.setFooter("See !man roleplaying", null);
                 user.asPrivateChannel().sendMessage(illegal.build()).queue();
                 event.getMessage().delete().queue();
                 return;
-            } else if (target.getStagedCharacter().getCharacterOwner().equals(user) && message.startsWith("_")) {
+            } else if (target.getStagedCharacter().getCharacterOwner().equals(user) && (message.startsWith("_") || message.startsWith("*"))) {
                 target.push();
                 return;
             }
