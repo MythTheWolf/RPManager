@@ -33,7 +33,7 @@ public class leaverp implements CommandExecutor {
         }
         DiscordUser self = DataCache.getDiscordUserByID(discordCommand.getSender().getId());
         if (target.getOwner().equals(self)) {
-            target.archive();
+            target.archive("The owner has left the RP.");
         } else {
             RolePlayCharacter targetcharacter = target.getCharacterList().stream().filter(character -> character.getCharacterOwner().equals(self)).collect(Collectors.toList()).stream().findFirst().orElse(null);
             target.removeCharacter(targetcharacter);

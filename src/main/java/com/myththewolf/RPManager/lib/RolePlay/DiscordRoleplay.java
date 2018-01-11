@@ -181,7 +181,15 @@ public class DiscordRoleplay {
         getHostChannel().sendMessage(t.build()).queue();
     }
 
-    public void archive() {
+    public void archive(String message) {
+        EmbedBuilder info = new EmbedBuilder();
+        info.setColor(Color.DARK_GRAY);
+        info.setTitle("RP Closed.");
+        info.addField("RP Name: ", "```" + getRoleplayName() + "```", false);
+        info.addField("Reason: ", "```" + message + "```", false);
+        getCharacterList().forEach(rolePlayCharacter -> {
+            rolePlayCharacter.getCharacterOwner().asPrivateChannel().sendMessage(info.build()).queue();
+        });
         this.status = "ARCHIVED";
         getHostChannel().delete().queue();
         recompile();
@@ -189,7 +197,7 @@ public class DiscordRoleplay {
 
     public void removeCharacter(RolePlayCharacter c) {
         if (getCharacterList().size() == 2) {
-            archive();
+            archive("Only one character was left.");
             DataCache.clearRPCache();
             RPManagerLoader.storeAllRPS();
             return;

@@ -33,7 +33,7 @@ public class RPExpirationDateService implements Runnable {
                 rp.getCharacterList().forEach(character -> {
                     character.getCharacterOwner().asPrivateChannel().sendMessage(closed.build()).queue();
                 });
-                rp.archive();
+                rp.archive("RP has been inactive for more than a week.");
             }
         });
     }
