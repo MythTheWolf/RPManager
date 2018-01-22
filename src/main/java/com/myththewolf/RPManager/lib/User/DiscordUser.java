@@ -1,6 +1,7 @@
 package com.myththewolf.RPManager.lib.User;
 
 import com.myththewolf.RPManager.RPManagerLoader;
+import com.myththewolf.RPManager.lib.DiscordUtils;
 import com.myththewolf.RPManager.lib.RolePlay.Character.CharacterBuilder;
 import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.RolePlay.RolePlayRequest;
@@ -129,5 +130,9 @@ public class DiscordUser {
     public boolean equals(Object obj) {
         if (obj instanceof DiscordUser) if (((DiscordUser) obj).getDiscordID().equals(this.getDiscordID())) return true;
         return false;
+    }
+
+    public boolean isAdmin(){
+        return DiscordUtils.inJSONArray()
     }
 }

@@ -1,6 +1,7 @@
 package com.myththewolf.RPManager.lib;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import org.json.JSONArray;
 
 import java.awt.*;
 
@@ -20,5 +21,9 @@ public class DiscordUtils {
             return false;
         }
         return true;
+    }
+
+    public static boolean inJSONArray(String needle, JSONArray haystack) {
+        return haystack != null ? haystack.toList().contains(needle) : false;
     }
 }
