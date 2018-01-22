@@ -29,6 +29,7 @@ public class LastPostCheckService implements Runnable {
                 warning.setFooter("Wish to leave? Use ^leave in the the RP chat to leave.s", null);
                 rp.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(warning.build()).queue();
                 rp.setLastPing(now);
+                rp.recompile();
             }
         });
     }
