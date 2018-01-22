@@ -16,16 +16,7 @@ public class RPExpirationDateService implements Runnable {
             DateTime now = new DateTime();
             DateTime expireDate = rp.getExpireDate();
             int days = Days.daysBetween(now, expireDate).getDays();
-            if (days <= 2) {
-                EmbedBuilder scarywarning = new EmbedBuilder();
-                scarywarning.setColor(Color.RED);
-                scarywarning.setTitle(":warning: RP EXPIRING :warning:");
-                scarywarning.addField("RP name", "```" + rp.getRoleplayName() + "```", false);
-                scarywarning.addField("RP Character name:", "```" + rp.getStagedCharacter().getName() + "```", false);
-                scarywarning.setDescription("This RP will expire in 24 hours, and it's your turn to post. Please leave the RP or make a post!");
-                rp.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(scarywarning.build()).queue();
-                rp.sendBoardMessage(":warning: **This RP will expire in 24 hours due to no activity**");
-            } else if (rp.expired()) {
+            if (rp.expired()) {
                 EmbedBuilder closed = new EmbedBuilder();
                 closed.setColor(Color.RED);
                 closed.setDescription("The RP you were active in: '" + rp.getRoleplayName() + "', was closed due to inactivity");
@@ -34,6 +25,15 @@ public class RPExpirationDateService implements Runnable {
                     character.getCharacterOwner().asPrivateChannel().sendMessage(closed.build()).queue();
                 });
                 rp.archive("RP has been inactive for more than a week.");
+            } else if (days <= 2) {
+                EmbedBuilder scarywarning = new EmbedBuilder();
+                scarywarning.setColor(Color.RED);
+                scarywarning.setTitle(":warning: RP EXPIRING :warning:");
+                scarywarning.addField("RP name", "```" + rp.getRoleplayName() + "```", false);
+                scarywarning.addField("RP Character name:", "```" + rp.getStagedCharacter().getName() + "```", false);
+                scarywarning.setDescription("This RP will expire in 24 hours, and it's your turn to post. Please leave the RP or make a post!");
+                rp.getStagedCharacter().getCharacterOwner().asPrivateChannel().sendMessage(scarywarning.build()).queue();
+                rp.sendBoardMessage(":warning: **This RP will expire in 24 hours due to no activity**");
             }
         });
     }
