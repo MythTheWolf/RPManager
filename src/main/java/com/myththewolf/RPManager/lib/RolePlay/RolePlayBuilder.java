@@ -34,7 +34,7 @@ public class RolePlayBuilder {
         ExpireDate = CreationDate.plusDays(7);
         last_post = CreationDate.plusHours(1);
         turn = 0;
-        cat_id = RPManagerLoader.INSTANCE.getJSONConfig().isNull("RP-CAT") ? RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getCategories().get(0).getId() : RPManagerLoader.INSTANCE.getJSONConfig().getString("RP-CAT");
+        cat_id = RPManagerLoader.INSTANCE.getJSONConfig().isNull("RP-CHANNEL-CATEGORY-ID") ? RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getCategories().get(0).getId() : RPManagerLoader.INSTANCE.getJSONConfig().getString("RP-CHANNEL-CATEGORY-ID");
         characters = new ArrayList<>();
         STATUS = "ACTIVE";
     }
@@ -55,9 +55,7 @@ public class RolePlayBuilder {
             ps.setString(3, name);
             ps.setInt(4, 0);
             chars = "";
-            this.characters.forEach(c -> {
-                chars += c.getID() + ",";
-            });
+            this.characters.forEach(c -> chars += c.getID() + ",");
             ps.setString(5, chars.substring(0, chars.length() - 1));
             String tid = RPManagerLoader.INSTANCE.getJDAInstance().getCategoryById(this.cat_id).createTextChannel(name).complete().getId();
             TextChannel create = RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid);
@@ -70,9 +68,8 @@ public class RolePlayBuilder {
                     }
 
                 } catch (Exception e) {
-
+                    RPManagerLoader.LogError(e);
                 }
-
             });
 
             this.characters.forEach(character -> {
@@ -82,7 +79,7 @@ public class RolePlayBuilder {
                         RPManagerLoader.INSTANCE.getJDAInstance().getTextChannelById(tid).createPermissionOverride(mem).setAllow(Permission.ALL_TEXT_PERMISSIONS).complete();
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RPManagerLoader.LogError(e);
                 }
 
             });

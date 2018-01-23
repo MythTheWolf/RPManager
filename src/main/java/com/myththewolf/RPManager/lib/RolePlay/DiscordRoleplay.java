@@ -1,8 +1,8 @@
 package com.myththewolf.RPManager.lib.RolePlay;
 
 import com.myththewolf.RPManager.RPManagerLoader;
-import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
@@ -77,6 +77,10 @@ public class DiscordRoleplay {
 
     public DateTime getExpireDate() {
         return expireDate;
+    }
+
+    public void setExpireDate(DateTime future) {
+        this.expireDate = future;
     }
 
     public DiscordUser getOwner() {

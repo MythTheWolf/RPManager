@@ -1,8 +1,11 @@
 {
-  "SQL_HOST":"",
-  "SQL_PORT":"",
-  "SQL_DATABASE":"",
-  "SQL_USER":"",
-  "SQL_PASS":"",
-  "BOT-LOG-CHANNEL":""
+  "SQL_HOST": "",
+  "SQL_PORT": "",
+  "SQL_DATABASE": "",
+  "SQL_USER": "",
+  "SQL_PASS": "",
+  "BOT-LOG-CHANNEL": "",
+  "ADMIN-ROLES": [],
+  "RP-CHANNEL-CATEGORY-ID": ""
+
 }

@@ -132,7 +132,7 @@ public class DiscordUser {
         return false;
     }
 
-    public boolean isAdmin(){
-        return DiscordUtils.inJSONArray()
+    public boolean isAdmin() {
+        return asRawDiscordUser().getMutualGuilds().get(0).getMember(asRawDiscordUser()).getRoles().stream().anyMatch(role -> DiscordUtils.inJSONArray(role.getId(), RPManagerLoader.INSTANCE.getJSONConfig().getJSONArray("admin-roles")));
     }
 }
