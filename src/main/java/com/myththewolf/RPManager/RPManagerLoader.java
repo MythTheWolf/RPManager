@@ -5,8 +5,6 @@ import com.myththewolf.BotServ.lib.API.invoke.BotPlugin;
 import com.myththewolf.BotServ.lib.API.invoke.PluginAdapter;
 import com.myththewolf.RPManager.commands.*;
 import com.myththewolf.RPManager.lib.DataCache;
-import com.myththewolf.RPManager.commands.mychars;
-import com.myththewolf.RPManager.commands.whosturn;
 import com.myththewolf.RPManager.lib.Services.HardExpirationCheckService;
 import com.myththewolf.RPManager.lib.Services.LastPostCheckService;
 import com.myththewolf.RPManager.lib.Services.RPExpirationDateService;
@@ -14,7 +12,10 @@ import com.myththewolf.RPManager.lib.events.MessageEvent;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.awt.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -22,40 +23,6 @@ import java.util.concurrent.TimeUnit;
 public class RPManagerLoader implements PluginAdapter {
     public static BotPlugin INSTANCE;
     public static Connection con;
-
-    public void onEnable(BotPlugin botPlugin) {
-        INSTANCE = botPlugin;
-        DataCache.makeMaps();
-        storeAllRPS();
-        startRPWatcherService();
-        botPlugin.getJDAInstance().addEventListener(new MessageEvent());
-        try {
-            botPlugin.registerCommand("^evaldev", new Eval());
-            botPlugin.registerCommand("^charwizard", new CharacterWizard());
-            botPlugin.registerCommand("^charsof", new charsof());
-            botPlugin.registerCommand("^char", new character());
-            botPlugin.registerCommand("^rpaccept", new AcceptRP());
-            botPlugin.registerCommand("^newrp", new newRP());
-            botPlugin.registerCommand("^invite", new invite());
-            botPlugin.registerCommand("^mychars", new mychars());
-            botPlugin.registerCommand("^turn", new whosturn());
-            botPlugin.registerCommand("^leave", new leaverp());
-            botPlugin.registerCommand("^excluderole", new excluderole());
-            botPlugin.registerCommand("^exclude", new exclude());
-            botPlugin.registerCommand("^kick", new Kick());
-            botPlugin.registerCommand("^rprequests", new RPRequests());
-            botPlugin.registerCommand("^close", new close());
-            botPlugin.registerCommand("^myrps", new myrps());
-            //TODO: ^help ^renew ^forceclose
-        } catch (Exception e) {
-            LogError(e);
-        }
-
-    }
-
-    public void onDisable() {
-
-    }
 
     public static void LogError(Exception e) {
         e.printStackTrace();
@@ -93,15 +60,6 @@ public class RPManagerLoader implements PluginAdapter {
 
     }
 
-    public void startRPWatcherService() {
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(new LastPostCheckService(), 0, 3, TimeUnit.SECONDS);
-        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-        exec.scheduleAtFixedRate(new RPExpirationDateService(), 0, 24, TimeUnit.HOURS);
-        ScheduledExecutorService exec3 = Executors.newScheduledThreadPool(1);
-        exec3.scheduleAtFixedRate(new HardExpirationCheckService(), 0, 16, TimeUnit.HOURS);
-    }
-
     public static void storeAllRPS() {
         try {
             PreparedStatement ps = getSQLConnection().prepareStatement("SELECT * FROM `Roleplays` WHERE `status` = ?");
@@ -113,5 +71,51 @@ public class RPManagerLoader implements PluginAdapter {
         } catch (SQLException e) {
             LogError(e);
         }
+    }
+
+    public void onEnable(BotPlugin botPlugin) {
+        INSTANCE = botPlugin;
+        DataCache.makeMaps();
+        storeAllRPS();
+        startRPWatcherService();
+        botPlugin.getJDAInstance().addEventListener(new MessageEvent());
+        try {
+            botPlugin.registerCommand("^evaldev", new Eval());
+            botPlugin.registerCommand("^charwizard", new CharacterWizard());
+            botPlugin.registerCommand("^charsof", new charsof());
+            botPlugin.registerCommand("^char", new character());
+            botPlugin.registerCommand("^rpaccept", new AcceptRP());
+            botPlugin.registerCommand("^newrp", new newRP());
+            botPlugin.registerCommand("^invite", new invite());
+            botPlugin.registerCommand("^mychars", new mychars());
+            botPlugin.registerCommand("^turn", new whosturn());
+            botPlugin.registerCommand("^leave", new leaverp());
+            botPlugin.registerCommand("^excluderole", new excluderole());
+            botPlugin.registerCommand("^exclude", new exclude());
+            botPlugin.registerCommand("^kick", new Kick());
+            botPlugin.registerCommand("^rprequests", new RPRequests());
+            botPlugin.registerCommand("^close", new close());
+            botPlugin.registerCommand("^myrps", new myrps());
+            botPlugin.registerCommand("^renew", new renew());
+            botPlugin.registerCommand("^isadminrole", new isAdminRole());
+
+            //TODO: ^help ^forceclose
+        } catch (Exception e) {
+            LogError(e);
+        }
+
+    }
+
+    public void onDisable() {
+
+    }
+
+    public void startRPWatcherService() {
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(new LastPostCheckService(), 0, 3, TimeUnit.SECONDS);
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(new RPExpirationDateService(), 0, 24, TimeUnit.HOURS);
+        ScheduledExecutorService exec3 = Executors.newScheduledThreadPool(1);
+        exec3.scheduleAtFixedRate(new HardExpirationCheckService(), 0, 16, TimeUnit.HOURS);
     }
 }
