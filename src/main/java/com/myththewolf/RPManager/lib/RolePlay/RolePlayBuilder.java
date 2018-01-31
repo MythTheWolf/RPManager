@@ -1,8 +1,8 @@
 package com.myththewolf.RPManager.lib.RolePlay;
 
 import com.myththewolf.RPManager.RPManagerLoader;
-import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.DataCache;
+import com.myththewolf.RPManager.lib.RolePlay.Character.RolePlayCharacter;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Member;
