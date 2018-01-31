@@ -98,7 +98,7 @@ public class RPManagerLoader implements PluginAdapter {
             botPlugin.registerCommand("^myrps", new myrps());
             botPlugin.registerCommand("^renew", new renew());
             botPlugin.registerCommand("^isadminrole", new isAdminRole());
-
+            botPlugin.registerCommand("^help", new help(botPlugin));
             //TODO: ^help ^forceclose
         } catch (Exception e) {
             LogError(e);
