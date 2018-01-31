@@ -47,16 +47,16 @@ public class DiscordUser {
         return requests;
     }
 
-    public void setCharacterBuilder(CharacterBuilder b) {
-        this.CB = b;
-    }
-
     public String getName() {
         return RPManagerLoader.INSTANCE.getJDAInstance().getUserById(getDiscordID()).getName();
     }
 
     public CharacterBuilder getCharacterBuilder() {
         return CB;
+    }
+
+    public void setCharacterBuilder(CharacterBuilder b) {
+        this.CB = b;
     }
 
     public List<RolePlayCharacter> getCharacters() {
@@ -133,6 +133,6 @@ public class DiscordUser {
     }
 
     public boolean isAdmin() {
-        return asRawDiscordUser().getMutualGuilds().get(0).getMember(asRawDiscordUser()).getRoles().stream().anyMatch(role -> DiscordUtils.inJSONArray(role.getId(), RPManagerLoader.INSTANCE.getJSONConfig().getJSONArray("admin-roles")));
+        return RPManagerLoader.INSTANCE.getJDAInstance().getGuilds().get(0).getOwner().equals(asRawDiscordUser().getMutualGuilds().get(0).getMember(asRawDiscordUser())) || asRawDiscordUser().getMutualGuilds().get(0).getMember(asRawDiscordUser()).getRoles().stream().anyMatch(role -> DiscordUtils.inJSONArray(role.getId(), RPManagerLoader.INSTANCE.getJSONConfig().getJSONArray("admin-roles")));
     }
 }
