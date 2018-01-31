@@ -1,11 +1,11 @@
 package com.myththewolf.RPManager.lib.events;
 
-import com.myththewolf.RPManager.RPManagerLoader;
 import com.myththewolf.RPManager.lib.DataCache;
 import com.myththewolf.RPManager.lib.RolePlay.DiscordRoleplay;
 import com.myththewolf.RPManager.lib.User.DiscordUser;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
@@ -32,6 +32,11 @@ public class MessageEvent implements EventListener {
         escape = false;
         found = false;
         MessageReceivedEvent event = (MessageReceivedEvent) eve;
+        User self = event.getJDA().getUserById(event.getJDA().getSelfUser().getId());
+        if (event.getMessage().getMentionedUsers().contains(self)) {
+            event.getTextChannel().sendMessage(":wave: Hello there! I'm the server's butler. I do many different things to keep this server running smooth, and I have many features you (might) enjoy! \n My commands can be found by using `^help`, this will only print a list of commands. However, if you wish to know more about a command, you may use `!man <command name>` \n Example: `!man charsof` \n I hope I best serve you, and I look forward to helping you!").queue();
+            return;
+        }
         if (event.getMessage().getContent().startsWith("^")) {
             return;
         }
